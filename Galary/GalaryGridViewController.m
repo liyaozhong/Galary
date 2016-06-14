@@ -62,6 +62,12 @@ static CGSize AssetGridThumbnailSize;
     [self updateCachedAssets];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+}
+
 - (NSMutableArray *) checkedImgs
 {
     if(!_checkedImgs){

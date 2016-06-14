@@ -7,6 +7,7 @@
 //
 
 #import "GalaryPagingViewController.h"
+#import "CheckView.h"
 
 @interface GalaryPagingViewController ()<PHPhotoLibraryChangeObserver, UIScrollViewDelegate>
 {
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) UIImageView * leftImageView;
 @property (nonatomic, strong) UIImageView * centerImageView;
 @property (nonatomic, strong) UIImageView * rightImageView;
+@property (nonatomic, strong) CheckView * checkBtn;
 @end
 
 @implementation GalaryPagingViewController
@@ -42,6 +44,16 @@
 
 - (void) setupView
 {
+    UIControl * bg = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [bg addTarget:self action:@selector(onRightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    bg.backgroundColor = [UIColor clearColor];
+    _checkBtn = [[CheckView alloc] initWithFrame:CGRectMake(20, 10, 20, 20)];
+    _checkBtn.userInteractionEnabled = NO;
+    [bg addSubview:_checkBtn];
+    _checkBtn.backgroundColor = [UIColor clearColor];
+    UIBarButtonItem * rightTitleBtn = [[UIBarButtonItem alloc] initWithCustomView:bg];
+    [self updateTitle];
+    self.navigationItem.rightBarButtonItem = rightTitleBtn;
     _pagingSrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _pagingSrollView.delegate = self;
     _pagingSrollView.contentSize = CGSizeMake(self.view.bounds.size.width * 3, 0);
@@ -80,6 +92,34 @@
     if(self.index < self.assetsFetchResults.count - 1){
         [self requestTargetImage:self.rightImageView index:self.index+1];
     }
+}
+
+- (void) updateTitle
+{
+    if([self.checkedImgs containsObject:[NSNumber numberWithInteger:self.index]]){
+        [_checkBtn setIndex:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:self.index]]];
+        if(_checkBtn.hidden){
+            _checkBtn.bounds = CGRectMake(0, 0, 10, 10);
+            _checkBtn.alpha = 0.5f;
+            [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:10 options:0 animations:^{
+                _checkBtn.bounds = CGRectMake(0, 0, 20, 20);
+                _checkBtn.alpha = 1;
+            } completion:nil];
+            _checkBtn.hidden = NO;
+        }
+    }else{
+        _checkBtn.hidden = YES;
+    }
+}
+
+- (void) onRightBtnClick
+{
+    if([self.checkedImgs containsObject:[NSNumber numberWithInteger:self.index]]){
+        [self.checkedImgs removeObject:[NSNumber numberWithInteger:self.index]];
+    }else{
+        [self.checkedImgs addObject:[NSNumber numberWithInteger:self.index]];
+    }
+    [self updateTitle];
 }
 
 - (void) requestTargetImage : (UIImageView *) imageView index : (NSUInteger) index
@@ -181,17 +221,20 @@
 {
     if(!decelerate){
         [self resetScrollPosition];
+        [self updateTitle];
     }
 }
 
 - (void) scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [self resetScrollPosition];
+    [self updateTitle];
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self resetScrollPosition];
+    [self updateTitle];
 }
 
 #pragma mark - PHPhotoLibraryChangeObserver

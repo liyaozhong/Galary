@@ -17,22 +17,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvl-HZ-DY4" customClass="UIControl">
-                        <rect key="frame" x="50" y="0.0" width="30" height="30"/>
+                        <rect key="frame" x="40" y="0.0" width="40" height="40"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="galary_unselected" translatesAutoresizingMaskIntoConstraints="NO" id="ufK-Ad-KzC">
-                                <rect key="frame" x="5" y="5" width="20" height="20"/>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LvB-Ta-9sc" customClass="CheckView">
+                                <rect key="frame" x="15" y="5" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="ELW-py-hAH"/>
-                                    <constraint firstAttribute="width" constant="20" id="cf5-T1-DIM"/>
+                                    <constraint firstAttribute="width" constant="20" id="X4C-uf-6BO"/>
+                                    <constraint firstAttribute="height" constant="20" id="hyZ-DH-3dX"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ufK-Ad-KzC" firstAttribute="top" secondItem="uvl-HZ-DY4" secondAttribute="top" constant="5" id="9Hu-zj-iUu"/>
-                            <constraint firstAttribute="trailing" secondItem="ufK-Ad-KzC" secondAttribute="trailing" constant="5" id="9iw-HJ-7Ao"/>
-                            <constraint firstAttribute="height" constant="30" id="dd9-Sg-IBu"/>
-                            <constraint firstAttribute="width" constant="30" id="o1n-bn-FOD"/>
+                            <constraint firstAttribute="trailing" secondItem="LvB-Ta-9sc" secondAttribute="trailing" constant="5" id="Qgl-G8-VbJ"/>
+                            <constraint firstItem="LvB-Ta-9sc" firstAttribute="top" secondItem="uvl-HZ-DY4" secondAttribute="top" constant="5" id="TCK-Wa-zUR"/>
+                            <constraint firstAttribute="height" constant="40" id="dd9-Sg-IBu"/>
+                            <constraint firstAttribute="width" constant="40" id="o1n-bn-FOD"/>
                         </constraints>
                         <connections>
                             <action selector="onCheckBtnClick:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Pza-hT-xtq"/>
@@ -50,12 +51,9 @@
                 <constraint firstAttribute="trailing" secondItem="Mz9-c4-d5y" secondAttribute="trailing" id="waT-o7-oLc"/>
             </constraints>
             <connections>
-                <outlet property="checkImageView" destination="ufK-Ad-KzC" id="8Fo-vg-nL8"/>
+                <outlet property="checkView" destination="LvB-Ta-9sc" id="ttZ-q6-mxf"/>
                 <outlet property="imageView" destination="Mz9-c4-d5y" id="e3M-Ff-2z9"/>
             </connections>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="galary_unselected" width="22" height="22"/>
-    </resources>
 </document>

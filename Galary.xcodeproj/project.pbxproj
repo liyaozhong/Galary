@@ -19,6 +19,7 @@
 		C0080F901D0FD9E900D5846A /* NSIndexSet+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */; };
 		C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */; };
 		C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */; };
+		C0080F9C1D10031600D5846A /* CheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F9B1D10031600D5846A /* CheckView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,8 @@
 		C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Convenience.m"; sourceTree = "<group>"; };
 		C0080F941D0FE5E800D5846A /* GalaryPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryPagingViewController.h; sourceTree = "<group>"; };
 		C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryPagingViewController.m; sourceTree = "<group>"; };
+		C0080F9A1D10031600D5846A /* CheckView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckView.h; sourceTree = "<group>"; };
+		C0080F9B1D10031600D5846A /* CheckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,8 @@
 				C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */,
 				C0080F911D0FDB0700D5846A /* UICollectionView+Convenience.h */,
 				C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */,
+				C0080F9A1D10031600D5846A /* CheckView.h */,
+				C0080F9B1D10031600D5846A /* CheckView.m */,
 			);
 			path = Galary;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 				C0080F861D0FD45400D5846A /* GalaryGridViewController.m in Sources */,
 				C0080F901D0FD9E900D5846A /* NSIndexSet+Convenience.m in Sources */,
 				C0080F6F1D0FCDCE00D5846A /* main.m in Sources */,
+				C0080F9C1D10031600D5846A /* CheckView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

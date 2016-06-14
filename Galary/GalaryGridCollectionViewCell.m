@@ -12,7 +12,7 @@
 
 @interface GalaryGridCollectionViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIImageView *checkImageView;
+@property (weak, nonatomic) IBOutlet CheckView *checkView;
 @end
 
 @implementation GalaryGridCollectionViewCell
@@ -28,16 +28,22 @@
     self.imageView.image = thumbnailImage;
 }
 
-- (void) setChecked : (BOOL) checked withAnimation : (BOOL) withAnimation
+- (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation
 {
-    self.checkImageView.image = [UIImage imageNamed:checked ? @"galary_selected":@"galary_unselected"];
-    if(withAnimation && checked){
-        self.checkImageView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE/2, CHECK_IMAGE_SIZE/2);
-        self.checkImageView.alpha = 0.5f;
-        [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:10 options:0 animations:^{
-            self.checkImageView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE, CHECK_IMAGE_SIZE);
-            self.checkImageView.alpha = 1;
-        } completion:nil];
+    if(index != NSNotFound)
+    {
+        self.checkView.hidden = NO;
+        [self.checkView setIndex:index];
+        if(withAnimation){
+            self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE/2, CHECK_IMAGE_SIZE/2);
+            self.checkView.alpha = 0.5f;
+            [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:10 options:0 animations:^{
+                self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE, CHECK_IMAGE_SIZE);
+                self.checkView.alpha = 1;
+            } completion:nil];
+        }
+    }else{
+        self.checkView.hidden = YES;
     }
 }
 

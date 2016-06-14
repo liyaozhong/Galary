@@ -12,5 +12,5 @@
 @interface GalaryPagingViewController : UIViewController
 @property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @property NSInteger index;
-@property (nonatomic, strong) NSMutableSet * checkedImgs;
+@property (nonatomic, strong) NSMutableArray * checkedImgs;
 @end

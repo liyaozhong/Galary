@@ -15,8 +15,11 @@
 @import PhotosUI;
 
 @interface GalaryGridViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, PHPhotoLibraryChangeObserver, GalaryGridCollectionViewCellDelegate>
+{
+    NSUInteger curAnimIndex;
+}
 @property (nonatomic, strong) UICollectionView * collectionView;
-@property (nonatomic, strong) NSMutableSet * checkedImgs;
+@property (nonatomic, strong) NSMutableArray * checkedImgs;
 @property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 @property CGRect previousPreheatRect;
@@ -59,10 +62,10 @@ static CGSize AssetGridThumbnailSize;
     [self updateCachedAssets];
 }
 
-- (NSMutableSet *) checkedImgs
+- (NSMutableArray *) checkedImgs
 {
     if(!_checkedImgs){
-        _checkedImgs = [NSMutableSet new];
+        _checkedImgs = [NSMutableArray new];
     }
     return _checkedImgs;
 }
@@ -121,13 +124,14 @@ static CGSize AssetGridThumbnailSize;
 
 - (void) galaryGridCell:(GalaryGridCollectionViewCell *)cell onCheckButtonClick:(NSIndexPath *)indexPath
 {
-    if([self.checkedImgs containsObject:indexPath]){
-        [self.checkedImgs removeObject:indexPath];
-        [cell setChecked:NO withAnimation:YES];
+    if([self.checkedImgs containsObject:[NSNumber numberWithInteger:indexPath.item]]){
+        [self.checkedImgs removeObject:[NSNumber numberWithInteger:indexPath.item]];
+        curAnimIndex = NSNotFound;
     }else{
-        [self.checkedImgs addObject:indexPath];
-        [cell setChecked:YES withAnimation:YES];
+        [self.checkedImgs addObject:[NSNumber numberWithInteger:indexPath.item]];
+        curAnimIndex = indexPath.item;
     }
+    [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -137,6 +141,7 @@ static CGSize AssetGridThumbnailSize;
     GalaryPagingViewController * galaryPaging = [GalaryPagingViewController new];
     galaryPaging.assetsFetchResults = self.assetsFetchResults;
     galaryPaging.index = indexPath.item;
+    galaryPaging.checkedImgs = self.checkedImgs;
     [self.navigationController pushViewController:galaryPaging animated:YES];
 }
 
@@ -155,7 +160,11 @@ static CGSize AssetGridThumbnailSize;
     GalaryGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GalaryGridCollectionViewCell" forIndexPath:indexPath];
     cell.delegate = self;
     cell.indexPath = indexPath;
-    [cell setChecked:[self.checkedImgs containsObject:indexPath] withAnimation:NO];
+    BOOL isAnimCell = curAnimIndex == indexPath.item;
+    if(isAnimCell){
+        curAnimIndex = NSNotFound;
+    }
+    [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item]] withAnimation:isAnimCell];
     cell.representedAssetIdentifier = asset.localIdentifier;
     
     // Request an image for the asset from the PHCachingImageManager.

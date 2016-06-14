@@ -10,7 +10,8 @@
 
 @interface GalaryPagingViewController ()<PHPhotoLibraryChangeObserver, UIScrollViewDelegate>
 {
-    PHImageRequestOptions *options;
+    PHImageRequestOptions *fastOptions;
+    PHImageRequestOptions *highQualityOptions;
 }
 @property (nonatomic, strong) UIScrollView * pagingSrollView;
 @property (nonatomic, strong) UIImageView * leftImageView;
@@ -30,6 +31,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
     [self setupView];
+    fastOptions = [[PHImageRequestOptions alloc] init];
+    fastOptions.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+    fastOptions.networkAccessAllowed = YES;
+    
+    highQualityOptions = [[PHImageRequestOptions alloc] init];
+    highQualityOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    highQualityOptions.networkAccessAllowed = YES;
 }
 
 - (void) setupView
@@ -57,14 +65,14 @@
     [self updateImgs];
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self showHighQualityImage:self.centerImageView index:self.index];
+}
+
 - (void) updateImgs
 {
-    if(!options){
-        options = [[PHImageRequestOptions alloc] init];
-        options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
-        options.networkAccessAllowed = YES;
-    }
-    
     if(self.index > 0){
         [self requestTargetImage:self.leftImageView index:self.index-1];
     }
@@ -79,7 +87,25 @@
     imageView.image = nil;
     imageView.tag = 0;
     [[PHImageManager defaultManager] cancelImageRequest:(PHImageRequestID)(imageView.tag)];
-    __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self.assetsFetchResults objectAtIndex:index] targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+    __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self.assetsFetchResults objectAtIndex:index] targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:fastOptions resultHandler:^(UIImage *result, NSDictionary *info) {
+        if (!result) {
+            return;
+        }
+        if(self.leftImageView.tag == requestID){
+            self.leftImageView.image = result;
+        }else if(self.centerImageView.tag == requestID){
+            self.centerImageView.image = result;
+        }else if(self.rightImageView.tag == requestID){
+            self.rightImageView.image = result;
+        }
+    }];
+    imageView.tag = requestID;
+}
+
+- (void) showHighQualityImage : (UIImageView *) imageView index : (NSUInteger) index
+{
+    [[PHImageManager defaultManager] cancelImageRequest:(PHImageRequestID)(imageView.tag)];
+    __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self.assetsFetchResults objectAtIndex:index] targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:highQualityOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         if (!result) {
             return;
         }
@@ -100,6 +126,7 @@
         self.index --;
         if(self.index <= 0){
             self.index = 0;
+            [self showHighQualityImage:self.leftImageView index:self.index];
             return;
         }
         self.rightImageView.tag = self.centerImageView.tag;
@@ -112,11 +139,13 @@
             self.leftImageView.tag = 0;
             self.leftImageView.image = nil;
         }
+        [self showHighQualityImage:self.centerImageView index:self.index];
         _pagingSrollView.contentOffset = CGPointMake(self.view.bounds.size.width, 0);
     }else if(_pagingSrollView.contentOffset.x == self.view.bounds.size.width * 2){
         self.index ++;
         if(self.index >= self.assetsFetchResults.count - 1){
             self.index = self.assetsFetchResults.count - 1;
+            [self showHighQualityImage:self.rightImageView index:self.index];
             return;
         }
         self.leftImageView.tag = self.centerImageView.tag;
@@ -129,7 +158,14 @@
             self.rightImageView.tag = 0;
             self.rightImageView.image = nil;
         }
+        [self showHighQualityImage:self.centerImageView index:self.index];
         _pagingSrollView.contentOffset = CGPointMake(self.view.bounds.size.width, 0);
+    }else if(_pagingSrollView.contentOffset.x == self.view.bounds.size.width){
+        if(self.index == 0){
+            self.index = 1;
+        }else if(self.index == self.assetsFetchResults.count - 1){
+            self.index = self.assetsFetchResults.count - 2;
+        }
     }
 }
 

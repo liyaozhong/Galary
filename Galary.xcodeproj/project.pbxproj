@@ -1,0 +1,341 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C0080F6F1D0FCDCE00D5846A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F6E1D0FCDCE00D5846A /* main.m */; };
+		C0080F721D0FCDCE00D5846A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F711D0FCDCE00D5846A /* AppDelegate.m */; };
+		C0080F751D0FCDCE00D5846A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F741D0FCDCE00D5846A /* ViewController.m */; };
+		C0080F781D0FCDCE00D5846A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0080F761D0FCDCE00D5846A /* Main.storyboard */; };
+		C0080F7A1D0FCDCE00D5846A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0080F791D0FCDCE00D5846A /* Assets.xcassets */; };
+		C0080F7D1D0FCDCE00D5846A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0080F7B1D0FCDCE00D5846A /* LaunchScreen.storyboard */; };
+		C0080F861D0FD45400D5846A /* GalaryGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F851D0FD45400D5846A /* GalaryGridViewController.m */; };
+		C0080F8C1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F8A1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m */; };
+		C0080F8D1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0080F8B1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib */; };
+		C0080F901D0FD9E900D5846A /* NSIndexSet+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */; };
+		C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */; };
+		C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C0080F6A1D0FCDCE00D5846A /* Galary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Galary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0080F6E1D0FCDCE00D5846A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C0080F701D0FCDCE00D5846A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C0080F711D0FCDCE00D5846A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C0080F731D0FCDCE00D5846A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C0080F741D0FCDCE00D5846A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C0080F771D0FCDCE00D5846A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C0080F791D0FCDCE00D5846A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C0080F7C1D0FCDCE00D5846A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C0080F7E1D0FCDCE00D5846A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0080F841D0FD45400D5846A /* GalaryGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryGridViewController.h; sourceTree = "<group>"; };
+		C0080F851D0FD45400D5846A /* GalaryGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryGridViewController.m; sourceTree = "<group>"; };
+		C0080F891D0FD63A00D5846A /* GalaryGridCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryGridCollectionViewCell.h; sourceTree = "<group>"; };
+		C0080F8A1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryGridCollectionViewCell.m; sourceTree = "<group>"; };
+		C0080F8B1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalaryGridCollectionViewCell.xib; sourceTree = "<group>"; };
+		C0080F8E1D0FD9E900D5846A /* NSIndexSet+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+Convenience.h"; sourceTree = "<group>"; };
+		C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+Convenience.m"; sourceTree = "<group>"; };
+		C0080F911D0FDB0700D5846A /* UICollectionView+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Convenience.h"; sourceTree = "<group>"; };
+		C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Convenience.m"; sourceTree = "<group>"; };
+		C0080F941D0FE5E800D5846A /* GalaryPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryPagingViewController.h; sourceTree = "<group>"; };
+		C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryPagingViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C0080F671D0FCDCE00D5846A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C0080F611D0FCDCE00D5846A = {
+			isa = PBXGroup;
+			children = (
+				C0080F6C1D0FCDCE00D5846A /* Galary */,
+				C0080F6B1D0FCDCE00D5846A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C0080F6B1D0FCDCE00D5846A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0080F6A1D0FCDCE00D5846A /* Galary.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C0080F6C1D0FCDCE00D5846A /* Galary */ = {
+			isa = PBXGroup;
+			children = (
+				C0080F701D0FCDCE00D5846A /* AppDelegate.h */,
+				C0080F711D0FCDCE00D5846A /* AppDelegate.m */,
+				C0080F731D0FCDCE00D5846A /* ViewController.h */,
+				C0080F741D0FCDCE00D5846A /* ViewController.m */,
+				C0080F761D0FCDCE00D5846A /* Main.storyboard */,
+				C0080F791D0FCDCE00D5846A /* Assets.xcassets */,
+				C0080F7B1D0FCDCE00D5846A /* LaunchScreen.storyboard */,
+				C0080F7E1D0FCDCE00D5846A /* Info.plist */,
+				C0080F6D1D0FCDCE00D5846A /* Supporting Files */,
+				C0080F841D0FD45400D5846A /* GalaryGridViewController.h */,
+				C0080F851D0FD45400D5846A /* GalaryGridViewController.m */,
+				C0080F941D0FE5E800D5846A /* GalaryPagingViewController.h */,
+				C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */,
+				C0080F891D0FD63A00D5846A /* GalaryGridCollectionViewCell.h */,
+				C0080F8A1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m */,
+				C0080F8B1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib */,
+				C0080F8E1D0FD9E900D5846A /* NSIndexSet+Convenience.h */,
+				C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */,
+				C0080F911D0FDB0700D5846A /* UICollectionView+Convenience.h */,
+				C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */,
+			);
+			path = Galary;
+			sourceTree = "<group>";
+		};
+		C0080F6D1D0FCDCE00D5846A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C0080F6E1D0FCDCE00D5846A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C0080F691D0FCDCE00D5846A /* Galary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0080F811D0FCDCE00D5846A /* Build configuration list for PBXNativeTarget "Galary" */;
+			buildPhases = (
+				C0080F661D0FCDCE00D5846A /* Sources */,
+				C0080F671D0FCDCE00D5846A /* Frameworks */,
+				C0080F681D0FCDCE00D5846A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Galary;
+			productName = Galary;
+			productReference = C0080F6A1D0FCDCE00D5846A /* Galary.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0080F621D0FCDCE00D5846A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = joshuali;
+				TargetAttributes = {
+					C0080F691D0FCDCE00D5846A = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = C0080F651D0FCDCE00D5846A /* Build configuration list for PBXProject "Galary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C0080F611D0FCDCE00D5846A;
+			productRefGroup = C0080F6B1D0FCDCE00D5846A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C0080F691D0FCDCE00D5846A /* Galary */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C0080F681D0FCDCE00D5846A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0080F8D1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib in Resources */,
+				C0080F7D1D0FCDCE00D5846A /* LaunchScreen.storyboard in Resources */,
+				C0080F7A1D0FCDCE00D5846A /* Assets.xcassets in Resources */,
+				C0080F781D0FCDCE00D5846A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C0080F661D0FCDCE00D5846A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0080F751D0FCDCE00D5846A /* ViewController.m in Sources */,
+				C0080F721D0FCDCE00D5846A /* AppDelegate.m in Sources */,
+				C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */,
+				C0080F8C1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m in Sources */,
+				C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */,
+				C0080F861D0FD45400D5846A /* GalaryGridViewController.m in Sources */,
+				C0080F901D0FD9E900D5846A /* NSIndexSet+Convenience.m in Sources */,
+				C0080F6F1D0FCDCE00D5846A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C0080F761D0FCDCE00D5846A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0080F771D0FCDCE00D5846A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C0080F7B1D0FCDCE00D5846A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0080F7C1D0FCDCE00D5846A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C0080F7F1D0FCDCE00D5846A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C0080F801D0FCDCE00D5846A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C0080F821D0FCDCE00D5846A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Galary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = code.joshuali.galary.Galary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C0080F831D0FCDCE00D5846A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Galary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = code.joshuali.galary.Galary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0080F651D0FCDCE00D5846A /* Build configuration list for PBXProject "Galary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0080F7F1D0FCDCE00D5846A /* Debug */,
+				C0080F801D0FCDCE00D5846A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0080F811D0FCDCE00D5846A /* Build configuration list for PBXNativeTarget "Galary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0080F821D0FCDCE00D5846A /* Debug */,
+				C0080F831D0FCDCE00D5846A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C0080F621D0FCDCE00D5846A /* Project object */;
+}

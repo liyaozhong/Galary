@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GalaryGridCollectionViewCell" id="gTV-IL-0wX" customClass="GalaryGridCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mz9-c4-d5y">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvl-HZ-DY4" customClass="UIControl">
+                        <rect key="frame" x="50" y="0.0" width="30" height="30"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="galary_unselected" translatesAutoresizingMaskIntoConstraints="NO" id="ufK-Ad-KzC">
+                                <rect key="frame" x="5" y="5" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="ELW-py-hAH"/>
+                                    <constraint firstAttribute="width" constant="20" id="cf5-T1-DIM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ufK-Ad-KzC" firstAttribute="top" secondItem="uvl-HZ-DY4" secondAttribute="top" constant="5" id="9Hu-zj-iUu"/>
+                            <constraint firstAttribute="trailing" secondItem="ufK-Ad-KzC" secondAttribute="trailing" constant="5" id="9iw-HJ-7Ao"/>
+                            <constraint firstAttribute="height" constant="30" id="dd9-Sg-IBu"/>
+                            <constraint firstAttribute="width" constant="30" id="o1n-bn-FOD"/>
+                        </constraints>
+                        <connections>
+                            <action selector="onCheckBtnClick:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Pza-hT-xtq"/>
+                        </connections>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="uvl-HZ-DY4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0Kk-0y-BFI"/>
+                <constraint firstAttribute="bottom" secondItem="Mz9-c4-d5y" secondAttribute="bottom" id="A2G-7z-XDG"/>
+                <constraint firstItem="Mz9-c4-d5y" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="NDd-76-h9j"/>
+                <constraint firstItem="Mz9-c4-d5y" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="nJ0-GL-bTM"/>
+                <constraint firstAttribute="trailing" secondItem="uvl-HZ-DY4" secondAttribute="trailing" id="rwX-50-S30"/>
+                <constraint firstAttribute="trailing" secondItem="Mz9-c4-d5y" secondAttribute="trailing" id="waT-o7-oLc"/>
+            </constraints>
+            <connections>
+                <outlet property="checkImageView" destination="ufK-Ad-KzC" id="8Fo-vg-nL8"/>
+                <outlet property="imageView" destination="Mz9-c4-d5y" id="e3M-Ff-2z9"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="galary_unselected" width="22" height="22"/>
+    </resources>
+</document>

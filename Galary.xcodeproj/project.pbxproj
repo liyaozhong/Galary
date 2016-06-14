@@ -143,6 +143,8 @@
 				TargetAttributes = {
 					C0080F691D0FCDCE00D5846A = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = U8DVA2L62W;
+						DevelopmentTeamName = "Beijing Aixuehuisi Co., Ltd.";
 					};
 				};
 			};
@@ -340,6 +342,7 @@
 				C0080F831D0FCDCE00D5846A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

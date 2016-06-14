@@ -11,9 +11,6 @@
 #define CHECK_IMAGE_SIZE  20
 
 @interface GalaryGridCollectionViewCell ()
-{
-    NSUInteger curIndex;
-}
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet CheckView *checkView;
 @end
@@ -35,21 +32,15 @@
 {
     if(index != NSNotFound)
     {
-        if(!self.checkView.hidden && curIndex == index){
-            return;
-        }else{
-            self.checkView.hidden = NO;
-            [self.checkView setIndex:index];
-            if(withAnimation){
-                BOOL changed = curIndex != index;
-                self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE/2, CHECK_IMAGE_SIZE/2);
-                self.checkView.alpha = 0.5f;
-                [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:changed ? 20 :10 options:0 animations:^{
-                    self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE, CHECK_IMAGE_SIZE);
-                    self.checkView.alpha = 1;
-                } completion:nil];
-            }
-            curIndex = index;
+        self.checkView.hidden = NO;
+        [self.checkView setIndex:index];
+        if(withAnimation){
+            self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE/2, CHECK_IMAGE_SIZE/2);
+            self.checkView.alpha = 0.5f;
+            [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:10 options:0 animations:^{
+                self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE, CHECK_IMAGE_SIZE);
+                self.checkView.alpha = 1;
+            } completion:nil];
         }
     }else{
         self.checkView.hidden = YES;

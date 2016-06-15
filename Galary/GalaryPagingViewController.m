@@ -110,7 +110,7 @@
 - (void) updateTitle
 {
     if([self.checkedImgs containsObject:[NSNumber numberWithInteger:self.index]]){
-        [_checkBtn setIndex:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:self.index]]];
+        [_checkBtn setIndex:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:self.index]]+1];
         if(_checkBtn.hidden){
             _checkBtn.bounds = CGRectMake(0, 0, 10, 10);
             _checkBtn.alpha = 0.5f;

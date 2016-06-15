@@ -33,7 +33,7 @@
     if(index != NSNotFound)
     {
         self.checkView.hidden = NO;
-        [self.checkView setIndex:index];
+        [self.checkView setIndex:index+1];
         if(withAnimation){
             self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE/2, CHECK_IMAGE_SIZE/2);
             self.checkView.alpha = 0.5f;

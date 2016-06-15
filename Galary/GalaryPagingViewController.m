@@ -147,12 +147,8 @@
         if (!result) {
             return;
         }
-        if(self.imageView1.tag == requestID){
-            self.imageView1.image = result;
-        }else if(self.imageView2.tag == requestID){
-            self.imageView2.image = result;
-        }else if(self.imageView3.tag == requestID){
-            self.imageView3.image = result;
+        if(imageView.tag == requestID){
+            imageView.image = result;
         }
     }];
     imageView.tag = requestID;
@@ -168,12 +164,8 @@
         if (!result) {
             return;
         }
-        if(self.imageView1.tag == requestID){
-            self.imageView1.image = result;
-        }else if(self.imageView2.tag == requestID){
-            self.imageView2.image = result;
-        }else if(self.imageView3.tag == requestID){
-            self.imageView3.image = result;
+        if(imageView.tag == requestID){
+            imageView.image = result;
         }
     }];
     imageView.tag = requestID;

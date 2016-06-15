@@ -15,9 +15,9 @@
     PHImageRequestOptions *highQualityOptions;
 }
 @property (nonatomic, strong) UIScrollView * pagingSrollView;
-@property (nonatomic, strong) UIImageView * leftImageView;
-@property (nonatomic, strong) UIImageView * centerImageView;
-@property (nonatomic, strong) UIImageView * rightImageView;
+@property (nonatomic, strong) UIImageView * imageView1;
+@property (nonatomic, strong) UIImageView * imageView2;
+@property (nonatomic, strong) UIImageView * imageView3;
 @property (nonatomic, strong) CheckView * checkBtn;
 @end
 
@@ -56,41 +56,54 @@
     self.navigationItem.rightBarButtonItem = rightTitleBtn;
     _pagingSrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _pagingSrollView.delegate = self;
-    _pagingSrollView.contentSize = CGSizeMake(self.view.bounds.size.width * 3, 0);
+    _pagingSrollView.contentSize = CGSizeMake(self.view.bounds.size.width * self.assetsFetchResults.count, 0);
     _pagingSrollView.showsHorizontalScrollIndicator = NO;
     _pagingSrollView.pagingEnabled = YES;
-    _pagingSrollView.contentOffset = CGPointMake(self.view.bounds.size.width, 0);
+    _pagingSrollView.contentOffset = CGPointMake(self.view.bounds.size.width * self.index, 0);
     [self.view addSubview:_pagingSrollView];
-    _leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
-    _leftImageView.contentMode = UIViewContentModeScaleAspectFit;
-    _centerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width, 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
-    _centerImageView.contentMode = UIViewContentModeScaleAspectFit;
-    _rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width*2, 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
-    _rightImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [_pagingSrollView addSubview:_leftImageView];
-    [_pagingSrollView addSubview:_centerImageView];
-    [_pagingSrollView addSubview:_rightImageView];
+    NSInteger position = self.index;
+    if(self.index == 0){
+        position = 1;
+    }else if(self.index == self.assetsFetchResults.count - 1){
+        position = self.assetsFetchResults.count - 2;
+    }
+    _imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * (position - 1), 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
+    _imageView1.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * position, 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
+    _imageView2.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * (position + 1), 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
+    _imageView3.contentMode = UIViewContentModeScaleAspectFit;
+    [_pagingSrollView addSubview:_imageView1];
+    [_pagingSrollView addSubview:_imageView2];
+    [_pagingSrollView addSubview:_imageView3];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateImgs];
+    if(self.index == 0){
+        [self requestTargetImage:self.imageView1 index:self.index];
+        [self requestTargetImage:self.imageView2 index:self.index+1];
+        [self requestTargetImage:self.imageView3 index:self.index+2];
+    }else if(self.index == self.assetsFetchResults.count - 1){
+        [self requestTargetImage:self.imageView3 index:self.index];
+        [self requestTargetImage:self.imageView2 index:self.index-1];
+        [self requestTargetImage:self.imageView1 index:self.index-2];
+    }else{
+        [self requestTargetImage:self.imageView1 index:self.index-1];
+        [self requestTargetImage:self.imageView2 index:self.index];
+        [self requestTargetImage:self.imageView3 index:self.index+1];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self showHighQualityImage:self.centerImageView index:self.index];
-}
-
-- (void) updateImgs
-{
-    if(self.index > 0){
-        [self requestTargetImage:self.leftImageView index:self.index-1];
-    }
-    [self requestTargetImage:self.centerImageView index:self.index];
-    if(self.index < self.assetsFetchResults.count - 1){
-        [self requestTargetImage:self.rightImageView index:self.index+1];
+    if(self.index == 0){
+        [self showHighQualityImage:self.imageView1 index:self.index];
+    }else if(self.index == self.assetsFetchResults.count - 1){
+        [self showHighQualityImage:self.imageView3 index:self.index];
+    }else{
+        [self showHighQualityImage:self.imageView2 index:self.index];
     }
 }
 
@@ -122,8 +135,11 @@
     [self updateTitle];
 }
 
-- (void) requestTargetImage : (UIImageView *) imageView index : (NSUInteger) index
+- (void) requestTargetImage : (UIImageView *) imageView index : (NSInteger) index
 {
+    if(index < 0 || self.assetsFetchResults.count <= index){
+        return;
+    }
     imageView.image = nil;
     imageView.tag = 0;
     [[PHImageManager defaultManager] cancelImageRequest:(PHImageRequestID)(imageView.tag)];
@@ -131,82 +147,36 @@
         if (!result) {
             return;
         }
-        if(self.leftImageView.tag == requestID){
-            self.leftImageView.image = result;
-        }else if(self.centerImageView.tag == requestID){
-            self.centerImageView.image = result;
-        }else if(self.rightImageView.tag == requestID){
-            self.rightImageView.image = result;
+        if(self.imageView1.tag == requestID){
+            self.imageView1.image = result;
+        }else if(self.imageView2.tag == requestID){
+            self.imageView2.image = result;
+        }else if(self.imageView3.tag == requestID){
+            self.imageView3.image = result;
         }
     }];
     imageView.tag = requestID;
 }
 
-- (void) showHighQualityImage : (UIImageView *) imageView index : (NSUInteger) index
+- (void) showHighQualityImage : (UIImageView *) imageView index : (NSInteger) index
 {
+    if(index < 0 || self.assetsFetchResults.count <= index){
+        return;
+    }
     [[PHImageManager defaultManager] cancelImageRequest:(PHImageRequestID)(imageView.tag)];
     __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self.assetsFetchResults objectAtIndex:index] targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:highQualityOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         if (!result) {
             return;
         }
-        if(self.leftImageView.tag == requestID){
-            self.leftImageView.image = result;
-        }else if(self.centerImageView.tag == requestID){
-            self.centerImageView.image = result;
-        }else if(self.rightImageView.tag == requestID){
-            self.rightImageView.image = result;
+        if(self.imageView1.tag == requestID){
+            self.imageView1.image = result;
+        }else if(self.imageView2.tag == requestID){
+            self.imageView2.image = result;
+        }else if(self.imageView3.tag == requestID){
+            self.imageView3.image = result;
         }
     }];
     imageView.tag = requestID;
-}
-
-- (void) resetScrollPosition
-{
-    if(_pagingSrollView.contentOffset.x == 0){
-        self.index --;
-        if(self.index <= 0){
-            self.index = 0;
-            [self showHighQualityImage:self.leftImageView index:self.index];
-            return;
-        }
-        self.rightImageView.tag = self.centerImageView.tag;
-        self.rightImageView.image = self.centerImageView.image;
-        self.centerImageView.tag = self.leftImageView.tag;
-        self.centerImageView.image = self.leftImageView.image;
-        if(self.index > 0){
-            [self requestTargetImage:self.leftImageView index:self.index-1];
-        }else{
-            self.leftImageView.tag = 0;
-            self.leftImageView.image = nil;
-        }
-        [self showHighQualityImage:self.centerImageView index:self.index];
-        _pagingSrollView.contentOffset = CGPointMake(self.view.bounds.size.width, 0);
-    }else if(_pagingSrollView.contentOffset.x == self.view.bounds.size.width * 2){
-        self.index ++;
-        if(self.index >= self.assetsFetchResults.count - 1){
-            self.index = self.assetsFetchResults.count - 1;
-            [self showHighQualityImage:self.rightImageView index:self.index];
-            return;
-        }
-        self.leftImageView.tag = self.centerImageView.tag;
-        self.leftImageView.image = self.centerImageView.image;
-        self.centerImageView.tag = self.rightImageView.tag;
-        self.centerImageView.image = self.rightImageView.image;
-        if(self.index < self.assetsFetchResults.count - 1){
-            [self requestTargetImage:self.rightImageView index:self.index+1];
-        }else{
-            self.rightImageView.tag = 0;
-            self.rightImageView.image = nil;
-        }
-        [self showHighQualityImage:self.centerImageView index:self.index];
-        _pagingSrollView.contentOffset = CGPointMake(self.view.bounds.size.width, 0);
-    }else if(_pagingSrollView.contentOffset.x == self.view.bounds.size.width){
-        if(self.index == 0){
-            self.index = 1;
-        }else if(self.index == self.assetsFetchResults.count - 1){
-            self.index = self.assetsFetchResults.count - 2;
-        }
-    }
 }
 
 - (CGSize)targetSize {
@@ -215,26 +185,87 @@
     return targetSize;
 }
 
-#pragma mark - UIScrollViewDelegate
-
-- (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+- (void) checkToSwapImageView
 {
-    if(!decelerate){
-        [self resetScrollPosition];
-        [self updateTitle];
+    NSInteger curIndex = self.pagingSrollView.contentOffset.x / self.pagingSrollView.bounds.size.width + 0.5f;
+    if(curIndex == self.index){
+        return;
+    }
+    BOOL edge = self.index == 0 || self.index == self.assetsFetchResults.count - 1;
+    self.index = curIndex;
+    [self updateTitle];
+    CGFloat img1CenterGap = ABS(_imageView1.frame.origin.x - self.pagingSrollView.contentOffset.x);
+    CGFloat img2CenterGap = ABS(_imageView2.frame.origin.x - self.pagingSrollView.contentOffset.x);
+    CGFloat img3CenterGap = ABS(_imageView3.frame.origin.x - self.pagingSrollView.contentOffset.x);
+    if(img1CenterGap > self.pagingSrollView.bounds.size.width){
+        if(_imageView1.frame.origin.x < _imageView2.frame.origin.x){
+            if(self.index >= self.assetsFetchResults.count - 1){
+                self.index = self.assetsFetchResults.count - 1;
+            }else if(!edge){
+                CGRect frame = _imageView1.frame;
+                _imageView1.frame = CGRectMake(frame.origin.x + self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
+                [self requestTargetImage:self.imageView1 index:self.index+1];
+            }
+        }else{
+            if(self.index <= 0){
+                self.index = 0;
+            }else if(!edge){
+                CGRect frame = _imageView1.frame;
+                _imageView1.frame = CGRectMake(frame.origin.x - self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
+                [self requestTargetImage:self.imageView1 index:self.index-1];
+            }
+        }
+    }else if(img2CenterGap > self.pagingSrollView.bounds.size.width){
+        if(_imageView2.frame.origin.x < _imageView1.frame.origin.x){
+            if(self.index >= self.assetsFetchResults.count - 1){
+                self.index = self.assetsFetchResults.count - 1;
+            }else if(!edge){
+                CGRect frame = _imageView2.frame;
+                _imageView2.frame = CGRectMake(frame.origin.x + self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
+                [self requestTargetImage:self.imageView2 index:self.index+1];
+            }
+        }else{
+            if(self.index <= 0){
+                self.index = 0;
+            }else if(!edge){
+                CGRect frame = _imageView2.frame;
+                _imageView2.frame = CGRectMake(frame.origin.x - self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
+                [self requestTargetImage:self.imageView2 index:self.index-1];
+            }
+        }
+    }else if(img3CenterGap > self.pagingSrollView.bounds.size.width){
+        if(_imageView3.frame.origin.x < _imageView1.frame.origin.x){
+            if(self.index >= self.assetsFetchResults.count - 1){
+                self.index = self.assetsFetchResults.count - 1;
+            }else if(!edge){
+                CGRect frame = _imageView3.frame;
+                _imageView3.frame = CGRectMake(frame.origin.x + self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
+                [self requestTargetImage:self.imageView3 index:self.index+1];
+            }
+        }else{
+            if(self.index <= 0){
+                self.index = 0;
+            }else if(!edge){
+                CGRect frame = _imageView3.frame;
+                _imageView3.frame = CGRectMake(frame.origin.x - self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
+                [self requestTargetImage:self.imageView3 index:self.index-1];
+            }
+        }
+    }
+    if(img1CenterGap < img2CenterGap && img1CenterGap < img3CenterGap){
+        [self showHighQualityImage:self.imageView1 index:self.index];
+    }else if(img2CenterGap < img1CenterGap && img2CenterGap < img3CenterGap){
+        [self showHighQualityImage:self.imageView2 index:self.index];
+    }else if(img3CenterGap < img1CenterGap && img3CenterGap < img2CenterGap){
+        [self showHighQualityImage:self.imageView3 index:self.index];
     }
 }
 
-- (void) scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    [self resetScrollPosition];
-    [self updateTitle];
-}
+#pragma mark - UIScrollViewDelegate
 
-- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self resetScrollPosition];
-    [self updateTitle];
+    [self checkToSwapImageView];
 }
 
 #pragma mark - PHPhotoLibraryChangeObserver
@@ -252,7 +283,7 @@
      */
     dispatch_async(dispatch_get_main_queue(), ^{
         self.assetsFetchResults = [collectionChanges fetchResultAfterChanges];
-        [self updateImgs];
+        [self checkToSwapImageView];
     });
 }
 

@@ -13,6 +13,7 @@
 {
     PHImageRequestOptions *fastOptions;
     PHImageRequestOptions *highQualityOptions;
+    UIImageView * curCenterImageView;
 }
 @property (nonatomic, strong) UIScrollView * pagingSrollView;
 @property (nonatomic, strong) UIImageView * imageView1;
@@ -245,12 +246,17 @@
         }
     }
     if(img1CenterGap < img2CenterGap && img1CenterGap < img3CenterGap){
-        [self showHighQualityImage:self.imageView1 index:self.index];
+        curCenterImageView = self.imageView1;
     }else if(img2CenterGap < img1CenterGap && img2CenterGap < img3CenterGap){
-        [self showHighQualityImage:self.imageView2 index:self.index];
+        curCenterImageView = self.imageView2;
     }else if(img3CenterGap < img1CenterGap && img3CenterGap < img2CenterGap){
-        [self showHighQualityImage:self.imageView3 index:self.index];
+        curCenterImageView = self.imageView3;
     }
+}
+
+- (void)scrollingStop
+{
+    [self showHighQualityImage:curCenterImageView index:self.index];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -258,6 +264,23 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self checkToSwapImageView];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [self scrollingStop];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self scrollingStop];
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(!decelerate){
+        [self scrollingStop];
+    }
 }
 
 #pragma mark - PHPhotoLibraryChangeObserver

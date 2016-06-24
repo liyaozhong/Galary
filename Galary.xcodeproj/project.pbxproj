@@ -13,17 +13,19 @@
 		C0080F781D0FCDCE00D5846A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0080F761D0FCDCE00D5846A /* Main.storyboard */; };
 		C0080F7A1D0FCDCE00D5846A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0080F791D0FCDCE00D5846A /* Assets.xcassets */; };
 		C0080F7D1D0FCDCE00D5846A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0080F7B1D0FCDCE00D5846A /* LaunchScreen.storyboard */; };
-		C0080F861D0FD45400D5846A /* GalaryGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F851D0FD45400D5846A /* GalaryGridViewController.m */; };
-		C0080F8C1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F8A1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m */; };
-		C0080F8D1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0080F8B1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib */; };
-		C0080F901D0FD9E900D5846A /* NSIndexSet+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */; };
-		C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */; };
-		C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */; };
-		C0080F9C1D10031600D5846A /* CheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F9B1D10031600D5846A /* CheckView.m */; };
-		C0E719991D1CFB930083E2BD /* GalaryRootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */; };
-		C0E7199A1D1CFB930083E2BD /* GalaryRootTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */; };
-		C0E7199D1D1D0B650083E2BD /* GalaryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E7199C1D1D0B650083E2BD /* GalaryHelper.m */; };
-		C0FB6EB01D1CF849003A492C /* GalaryRootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */; };
+		C0E71A011D1D13680083E2BD /* CheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719EC1D1D13680083E2BD /* CheckView.m */; };
+		C0E71A021D1D13680083E2BD /* galary_check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0E719ED1D1D13680083E2BD /* galary_check@2x.png */; };
+		C0E71A031D1D13680083E2BD /* galary_check@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0E719EE1D1D13680083E2BD /* galary_check@3x.png */; };
+		C0E71A041D1D13680083E2BD /* GalaryGridCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719F01D1D13680083E2BD /* GalaryGridCollectionViewCell.m */; };
+		C0E71A051D1D13680083E2BD /* GalaryGridCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E719F11D1D13680083E2BD /* GalaryGridCollectionViewCell.xib */; };
+		C0E71A061D1D13680083E2BD /* GalaryGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719F31D1D13680083E2BD /* GalaryGridViewController.m */; };
+		C0E71A071D1D13680083E2BD /* GalaryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719F51D1D13680083E2BD /* GalaryHelper.m */; };
+		C0E71A081D1D13680083E2BD /* GalaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719F71D1D13680083E2BD /* GalaryPagingViewController.m */; };
+		C0E71A091D1D13680083E2BD /* GalaryRootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719F91D1D13680083E2BD /* GalaryRootTableViewCell.m */; };
+		C0E71A0A1D1D13680083E2BD /* GalaryRootTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E719FA1D1D13680083E2BD /* GalaryRootTableViewCell.xib */; };
+		C0E71A0B1D1D13680083E2BD /* GalaryRootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719FC1D1D13680083E2BD /* GalaryRootTableViewController.m */; };
+		C0E71A0C1D1D13680083E2BD /* NSIndexSet+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719FE1D1D13680083E2BD /* NSIndexSet+Convenience.m */; };
+		C0E71A0D1D1D13680083E2BD /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E71A001D1D13680083E2BD /* UICollectionView+Convenience.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,26 +39,28 @@
 		C0080F791D0FCDCE00D5846A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0080F7C1D0FCDCE00D5846A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0080F7E1D0FCDCE00D5846A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C0080F841D0FD45400D5846A /* GalaryGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryGridViewController.h; sourceTree = "<group>"; };
-		C0080F851D0FD45400D5846A /* GalaryGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryGridViewController.m; sourceTree = "<group>"; };
-		C0080F891D0FD63A00D5846A /* GalaryGridCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryGridCollectionViewCell.h; sourceTree = "<group>"; };
-		C0080F8A1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryGridCollectionViewCell.m; sourceTree = "<group>"; };
-		C0080F8B1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalaryGridCollectionViewCell.xib; sourceTree = "<group>"; };
-		C0080F8E1D0FD9E900D5846A /* NSIndexSet+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+Convenience.h"; sourceTree = "<group>"; };
-		C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+Convenience.m"; sourceTree = "<group>"; };
-		C0080F911D0FDB0700D5846A /* UICollectionView+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Convenience.h"; sourceTree = "<group>"; };
-		C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Convenience.m"; sourceTree = "<group>"; };
-		C0080F941D0FE5E800D5846A /* GalaryPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryPagingViewController.h; sourceTree = "<group>"; };
-		C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryPagingViewController.m; sourceTree = "<group>"; };
-		C0080F9A1D10031600D5846A /* CheckView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckView.h; sourceTree = "<group>"; };
-		C0080F9B1D10031600D5846A /* CheckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckView.m; sourceTree = "<group>"; };
-		C0E719961D1CFB930083E2BD /* GalaryRootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewCell.h; sourceTree = "<group>"; };
-		C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewCell.m; sourceTree = "<group>"; };
-		C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalaryRootTableViewCell.xib; sourceTree = "<group>"; };
-		C0E7199B1D1D0B650083E2BD /* GalaryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryHelper.h; sourceTree = "<group>"; };
-		C0E7199C1D1D0B650083E2BD /* GalaryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryHelper.m; sourceTree = "<group>"; };
-		C0FB6EAE1D1CF849003A492C /* GalaryRootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewController.h; sourceTree = "<group>"; };
-		C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewController.m; sourceTree = "<group>"; };
+		C0E719EB1D1D13680083E2BD /* CheckView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckView.h; sourceTree = "<group>"; };
+		C0E719EC1D1D13680083E2BD /* CheckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckView.m; sourceTree = "<group>"; };
+		C0E719ED1D1D13680083E2BD /* galary_check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "galary_check@2x.png"; sourceTree = "<group>"; };
+		C0E719EE1D1D13680083E2BD /* galary_check@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "galary_check@3x.png"; sourceTree = "<group>"; };
+		C0E719EF1D1D13680083E2BD /* GalaryGridCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryGridCollectionViewCell.h; sourceTree = "<group>"; };
+		C0E719F01D1D13680083E2BD /* GalaryGridCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryGridCollectionViewCell.m; sourceTree = "<group>"; };
+		C0E719F11D1D13680083E2BD /* GalaryGridCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalaryGridCollectionViewCell.xib; sourceTree = "<group>"; };
+		C0E719F21D1D13680083E2BD /* GalaryGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryGridViewController.h; sourceTree = "<group>"; };
+		C0E719F31D1D13680083E2BD /* GalaryGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryGridViewController.m; sourceTree = "<group>"; };
+		C0E719F41D1D13680083E2BD /* GalaryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryHelper.h; sourceTree = "<group>"; };
+		C0E719F51D1D13680083E2BD /* GalaryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryHelper.m; sourceTree = "<group>"; };
+		C0E719F61D1D13680083E2BD /* GalaryPagingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryPagingViewController.h; sourceTree = "<group>"; };
+		C0E719F71D1D13680083E2BD /* GalaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryPagingViewController.m; sourceTree = "<group>"; };
+		C0E719F81D1D13680083E2BD /* GalaryRootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewCell.h; sourceTree = "<group>"; };
+		C0E719F91D1D13680083E2BD /* GalaryRootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewCell.m; sourceTree = "<group>"; };
+		C0E719FA1D1D13680083E2BD /* GalaryRootTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalaryRootTableViewCell.xib; sourceTree = "<group>"; };
+		C0E719FB1D1D13680083E2BD /* GalaryRootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewController.h; sourceTree = "<group>"; };
+		C0E719FC1D1D13680083E2BD /* GalaryRootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewController.m; sourceTree = "<group>"; };
+		C0E719FD1D1D13680083E2BD /* NSIndexSet+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+Convenience.h"; sourceTree = "<group>"; };
+		C0E719FE1D1D13680083E2BD /* NSIndexSet+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+Convenience.m"; sourceTree = "<group>"; };
+		C0E719FF1D1D13680083E2BD /* UICollectionView+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Convenience.h"; sourceTree = "<group>"; };
+		C0E71A001D1D13680083E2BD /* UICollectionView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Convenience.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,27 +101,8 @@
 				C0080F791D0FCDCE00D5846A /* Assets.xcassets */,
 				C0080F7B1D0FCDCE00D5846A /* LaunchScreen.storyboard */,
 				C0080F7E1D0FCDCE00D5846A /* Info.plist */,
+				C0E719EA1D1D13680083E2BD /* MyGalary */,
 				C0080F6D1D0FCDCE00D5846A /* Supporting Files */,
-				C0E7199B1D1D0B650083E2BD /* GalaryHelper.h */,
-				C0E7199C1D1D0B650083E2BD /* GalaryHelper.m */,
-				C0FB6EAE1D1CF849003A492C /* GalaryRootTableViewController.h */,
-				C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */,
-				C0080F841D0FD45400D5846A /* GalaryGridViewController.h */,
-				C0080F851D0FD45400D5846A /* GalaryGridViewController.m */,
-				C0080F941D0FE5E800D5846A /* GalaryPagingViewController.h */,
-				C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */,
-				C0E719961D1CFB930083E2BD /* GalaryRootTableViewCell.h */,
-				C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */,
-				C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */,
-				C0080F891D0FD63A00D5846A /* GalaryGridCollectionViewCell.h */,
-				C0080F8A1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m */,
-				C0080F8B1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib */,
-				C0080F8E1D0FD9E900D5846A /* NSIndexSet+Convenience.h */,
-				C0080F8F1D0FD9E900D5846A /* NSIndexSet+Convenience.m */,
-				C0080F911D0FDB0700D5846A /* UICollectionView+Convenience.h */,
-				C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */,
-				C0080F9A1D10031600D5846A /* CheckView.h */,
-				C0080F9B1D10031600D5846A /* CheckView.m */,
 			);
 			path = Galary;
 			sourceTree = "<group>";
@@ -128,6 +113,35 @@
 				C0080F6E1D0FCDCE00D5846A /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C0E719EA1D1D13680083E2BD /* MyGalary */ = {
+			isa = PBXGroup;
+			children = (
+				C0E719EB1D1D13680083E2BD /* CheckView.h */,
+				C0E719EC1D1D13680083E2BD /* CheckView.m */,
+				C0E719ED1D1D13680083E2BD /* galary_check@2x.png */,
+				C0E719EE1D1D13680083E2BD /* galary_check@3x.png */,
+				C0E719EF1D1D13680083E2BD /* GalaryGridCollectionViewCell.h */,
+				C0E719F01D1D13680083E2BD /* GalaryGridCollectionViewCell.m */,
+				C0E719F11D1D13680083E2BD /* GalaryGridCollectionViewCell.xib */,
+				C0E719F21D1D13680083E2BD /* GalaryGridViewController.h */,
+				C0E719F31D1D13680083E2BD /* GalaryGridViewController.m */,
+				C0E719F41D1D13680083E2BD /* GalaryHelper.h */,
+				C0E719F51D1D13680083E2BD /* GalaryHelper.m */,
+				C0E719F61D1D13680083E2BD /* GalaryPagingViewController.h */,
+				C0E719F71D1D13680083E2BD /* GalaryPagingViewController.m */,
+				C0E719F81D1D13680083E2BD /* GalaryRootTableViewCell.h */,
+				C0E719F91D1D13680083E2BD /* GalaryRootTableViewCell.m */,
+				C0E719FA1D1D13680083E2BD /* GalaryRootTableViewCell.xib */,
+				C0E719FB1D1D13680083E2BD /* GalaryRootTableViewController.h */,
+				C0E719FC1D1D13680083E2BD /* GalaryRootTableViewController.m */,
+				C0E719FD1D1D13680083E2BD /* NSIndexSet+Convenience.h */,
+				C0E719FE1D1D13680083E2BD /* NSIndexSet+Convenience.m */,
+				C0E719FF1D1D13680083E2BD /* UICollectionView+Convenience.h */,
+				C0E71A001D1D13680083E2BD /* UICollectionView+Convenience.m */,
+			);
+			path = MyGalary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,10 +203,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0080F8D1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib in Resources */,
-				C0E7199A1D1CFB930083E2BD /* GalaryRootTableViewCell.xib in Resources */,
 				C0080F7D1D0FCDCE00D5846A /* LaunchScreen.storyboard in Resources */,
+				C0E71A021D1D13680083E2BD /* galary_check@2x.png in Resources */,
+				C0E71A0A1D1D13680083E2BD /* GalaryRootTableViewCell.xib in Resources */,
+				C0E71A031D1D13680083E2BD /* galary_check@3x.png in Resources */,
 				C0080F7A1D0FCDCE00D5846A /* Assets.xcassets in Resources */,
+				C0E71A051D1D13680083E2BD /* GalaryGridCollectionViewCell.xib in Resources */,
 				C0080F781D0FCDCE00D5846A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,18 +220,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0E719991D1CFB930083E2BD /* GalaryRootTableViewCell.m in Sources */,
-				C0E7199D1D1D0B650083E2BD /* GalaryHelper.m in Sources */,
+				C0E71A071D1D13680083E2BD /* GalaryHelper.m in Sources */,
 				C0080F751D0FCDCE00D5846A /* ViewController.m in Sources */,
 				C0080F721D0FCDCE00D5846A /* AppDelegate.m in Sources */,
-				C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */,
-				C0080F8C1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m in Sources */,
-				C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */,
-				C0FB6EB01D1CF849003A492C /* GalaryRootTableViewController.m in Sources */,
-				C0080F861D0FD45400D5846A /* GalaryGridViewController.m in Sources */,
-				C0080F901D0FD9E900D5846A /* NSIndexSet+Convenience.m in Sources */,
+				C0E71A061D1D13680083E2BD /* GalaryGridViewController.m in Sources */,
+				C0E71A081D1D13680083E2BD /* GalaryPagingViewController.m in Sources */,
+				C0E71A0B1D1D13680083E2BD /* GalaryRootTableViewController.m in Sources */,
+				C0E71A0C1D1D13680083E2BD /* NSIndexSet+Convenience.m in Sources */,
+				C0E71A041D1D13680083E2BD /* GalaryGridCollectionViewCell.m in Sources */,
+				C0E71A091D1D13680083E2BD /* GalaryRootTableViewCell.m in Sources */,
 				C0080F6F1D0FCDCE00D5846A /* main.m in Sources */,
-				C0080F9C1D10031600D5846A /* CheckView.m in Sources */,
+				C0E71A0D1D1D13680083E2BD /* UICollectionView+Convenience.m in Sources */,
+				C0E71A011D1D13680083E2BD /* CheckView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,11 +28,12 @@
     self.imageView.image = thumbnailImage;
 }
 
-- (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation
+- (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation withIncrementalCount : (BOOL) incrementalCout
 {
     if(index != NSNotFound)
     {
         self.checkView.hidden = NO;
+        [self.checkView setShowIndex:incrementalCout];
         [self.checkView setIndex:index+1];
         if(withAnimation){
             self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE/2, CHECK_IMAGE_SIZE/2);

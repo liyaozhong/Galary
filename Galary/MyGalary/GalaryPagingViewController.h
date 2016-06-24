@@ -13,4 +13,6 @@
 @property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @property NSInteger index;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;
+
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete;
 @end

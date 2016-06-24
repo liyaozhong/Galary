@@ -9,13 +9,28 @@
 #import "GalaryRootTableViewController.h"
 #import "GalaryGridViewController.h"
 #import "GalaryRootTableViewCell.h"
-@import Photos;
+
+typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 @interface GalaryRootTableViewController ()<PHPhotoLibraryChangeObserver>
+{
+    PickCompleteBlock mPickComplete;
+    BOOL mIncrementalCount;
+}
 @property (nonatomic, strong) NSArray *sectionFetchResults;
 @end
 
 @implementation GalaryRootTableViewController
+
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete
+{
+    self = [super init];
+    if(self){
+        mPickComplete = pickComplete;
+        mIncrementalCount = incrementalCount;
+    }
+    return self;
+}
 
 - (void) viewDidLoad
 {
@@ -105,7 +120,7 @@
 
 - (void) tableView:(UITableView *)cell didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GalaryGridViewController *assetGridViewController = [GalaryGridViewController new];
+    GalaryGridViewController *assetGridViewController = [[GalaryGridViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete];
     if (indexPath.section == 0) {
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
         assetGridViewController.centerTitle = NSLocalizedString(@"All Photos", @"");

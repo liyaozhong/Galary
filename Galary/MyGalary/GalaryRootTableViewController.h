@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@import Photos;
 
 @interface GalaryRootTableViewController : UITableViewController
-
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete;
 @end

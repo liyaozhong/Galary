@@ -11,11 +11,14 @@
 #import "NSIndexSet+Convenience.h"
 #import "UICollectionView+Convenience.h"
 #import "GalaryPagingViewController.h"
-@import PhotosUI;
+
+typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 @interface GalaryGridViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, PHPhotoLibraryChangeObserver, GalaryGridCollectionViewCellDelegate>
 {
     NSUInteger curAnimIndex;
+    PickCompleteBlock mPickComplete;
+    BOOL mIncrementalCount;
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;
@@ -26,6 +29,16 @@
 @implementation GalaryGridViewController
 
 static CGSize AssetGridThumbnailSize;
+
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete
+{
+    self = [super init];
+    if(self){
+        mPickComplete = pickComplete;
+        mIncrementalCount = incrementalCount;
+    }
+    return self;
+}
 
 - (void)dealloc {
     [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
@@ -149,7 +162,7 @@ static CGSize AssetGridThumbnailSize;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GalaryPagingViewController * galaryPaging = [GalaryPagingViewController new];
+    GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete];
     galaryPaging.assetsFetchResults = self.assetsFetchResults;
     galaryPaging.index = indexPath.item;
     galaryPaging.checkedImgs = self.checkedImgs;
@@ -175,7 +188,7 @@ static CGSize AssetGridThumbnailSize;
     if(isAnimCell){
         curAnimIndex = NSNotFound;
     }
-    [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item]] withAnimation:isAnimCell];
+    [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item]] withAnimation:isAnimCell withIncrementalCount:mIncrementalCount];
     cell.representedAssetIdentifier = asset.localIdentifier;
     
     // Request an image for the asset from the PHCachingImageManager.

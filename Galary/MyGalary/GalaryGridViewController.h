@@ -10,6 +10,7 @@
 @import Photos;
 
 @interface GalaryGridViewController : UIViewController
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete;
 @property (nonatomic, copy) NSString * centerTitle;
 @property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @end

@@ -27,7 +27,9 @@
 
 - (IBAction)gotoGalary:(id)sender
 {
-    [GalaryHelper presentGalary:self];
+    [GalaryHelper presentGalary:self withIncrementalCount:YES withPickComplete:^(NSArray<PHAsset *> *assets) {
+        
+    }];
 }
 
 @end

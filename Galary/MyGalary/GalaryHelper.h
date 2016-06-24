@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 @import UIKit;
+@import Photos;
 
 @interface GalaryHelper : NSObject
-+ (void) presentGalary : (UIViewController *) viewController;
++ (void) presentGalary : (UIViewController *) viewController withIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete;
 @end

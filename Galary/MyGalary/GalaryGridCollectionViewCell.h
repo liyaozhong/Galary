@@ -21,5 +21,5 @@
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) UIImage *thumbnailImage;
 @property (nonatomic, copy) NSString *representedAssetIdentifier;
-- (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation;
+- (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation withIncrementalCount : (BOOL) incrementalCout;
 @end

@@ -9,11 +9,15 @@
 #import "GalaryPagingViewController.h"
 #import "CheckView.h"
 
+typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
+
 @interface GalaryPagingViewController ()<PHPhotoLibraryChangeObserver, UIScrollViewDelegate>
 {
     PHImageRequestOptions *fastOptions;
     PHImageRequestOptions *highQualityOptions;
     UIImageView * curCenterImageView;
+    PickCompleteBlock mPickComplete;
+    BOOL mIncrementalCount;
 }
 @property (nonatomic, strong) UIScrollView * pagingSrollView;
 @property (nonatomic, strong) UIImageView * imageView1;
@@ -23,6 +27,16 @@
 @end
 
 @implementation GalaryPagingViewController
+
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete
+{
+    self = [super init];
+    if(self){
+        mPickComplete = pickComplete;
+        mIncrementalCount = incrementalCount;
+    }
+    return self;
+}
 
 - (void)dealloc {
     [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
@@ -49,6 +63,7 @@
     [bg addTarget:self action:@selector(onRightBtnClick) forControlEvents:UIControlEventTouchUpInside];
     bg.backgroundColor = [UIColor clearColor];
     _checkBtn = [[CheckView alloc] initWithFrame:CGRectMake(20, 10, 20, 20)];
+    [_checkBtn setShowIndex:mIncrementalCount];
     _checkBtn.userInteractionEnabled = NO;
     [bg addSubview:_checkBtn];
     _checkBtn.backgroundColor = [UIColor clearColor];

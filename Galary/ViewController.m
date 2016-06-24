@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "GalaryRootTableViewController.h"
-#import "GalaryGridViewController.h"
+#import "GalaryHelper.h"
 
 @interface ViewController ()
 
@@ -28,9 +27,7 @@
 
 - (IBAction)gotoGalary:(id)sender
 {
-    UINavigationController * nav = [[UINavigationController alloc] init];
-    [nav setViewControllers:@[[GalaryRootTableViewController new], [GalaryGridViewController new]]];
-    [self presentViewController:nav animated:YES completion:nil];
+    [GalaryHelper presentGalary:self];
 }
 
 @end

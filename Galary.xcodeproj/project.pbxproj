@@ -22,6 +22,7 @@
 		C0080F9C1D10031600D5846A /* CheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F9B1D10031600D5846A /* CheckView.m */; };
 		C0E719991D1CFB930083E2BD /* GalaryRootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */; };
 		C0E7199A1D1CFB930083E2BD /* GalaryRootTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */; };
+		C0E7199D1D1D0B650083E2BD /* GalaryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E7199C1D1D0B650083E2BD /* GalaryHelper.m */; };
 		C0FB6EB01D1CF849003A492C /* GalaryRootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,8 @@
 		C0E719961D1CFB930083E2BD /* GalaryRootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewCell.h; sourceTree = "<group>"; };
 		C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewCell.m; sourceTree = "<group>"; };
 		C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalaryRootTableViewCell.xib; sourceTree = "<group>"; };
+		C0E7199B1D1D0B650083E2BD /* GalaryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryHelper.h; sourceTree = "<group>"; };
+		C0E7199C1D1D0B650083E2BD /* GalaryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryHelper.m; sourceTree = "<group>"; };
 		C0FB6EAE1D1CF849003A492C /* GalaryRootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewController.h; sourceTree = "<group>"; };
 		C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +98,8 @@
 				C0080F7B1D0FCDCE00D5846A /* LaunchScreen.storyboard */,
 				C0080F7E1D0FCDCE00D5846A /* Info.plist */,
 				C0080F6D1D0FCDCE00D5846A /* Supporting Files */,
+				C0E7199B1D1D0B650083E2BD /* GalaryHelper.h */,
+				C0E7199C1D1D0B650083E2BD /* GalaryHelper.m */,
 				C0FB6EAE1D1CF849003A492C /* GalaryRootTableViewController.h */,
 				C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */,
 				C0080F841D0FD45400D5846A /* GalaryGridViewController.h */,
@@ -200,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0E719991D1CFB930083E2BD /* GalaryRootTableViewCell.m in Sources */,
+				C0E7199D1D1D0B650083E2BD /* GalaryHelper.m in Sources */,
 				C0080F751D0FCDCE00D5846A /* ViewController.m in Sources */,
 				C0080F721D0FCDCE00D5846A /* AppDelegate.m in Sources */,
 				C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */,

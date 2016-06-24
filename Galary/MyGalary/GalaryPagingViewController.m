@@ -126,18 +126,18 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 - (void) updateTitle
 {
     if([self.checkedImgs containsObject:[NSNumber numberWithInteger:self.index]]){
-        [_checkBtn setIndex:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:self.index]]+1];
-        if(_checkBtn.hidden){
+        if(![_checkBtn isChecked]){
             _checkBtn.bounds = CGRectMake(0, 0, 10, 10);
             _checkBtn.alpha = 0.5f;
             [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:10 options:0 animations:^{
                 _checkBtn.bounds = CGRectMake(0, 0, 20, 20);
                 _checkBtn.alpha = 1;
             } completion:nil];
-            _checkBtn.hidden = NO;
         }
+        [_checkBtn setChecked:YES];
+        [_checkBtn setIndex:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:self.index]]+1];
     }else{
-        _checkBtn.hidden = YES;
+        [_checkBtn setChecked:NO];
     }
 }
 

@@ -58,6 +58,8 @@ static CGSize AssetGridThumbnailSize;
     }else{
         self.navigationItem.title = NSLocalizedString(@"All Photos", @"");
     }
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.rightBarButtonItem = rightButton;
     if(!_assetsFetchResults){
         PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
         allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
@@ -76,6 +78,11 @@ static CGSize AssetGridThumbnailSize;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [_collectionView registerNib:[UINib nibWithNibName:@"GalaryGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"GalaryGridCollectionViewCell"];
+}
+
+- (void) cancel
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -194,7 +201,7 @@ static CGSize AssetGridThumbnailSize;
     cell.indexPath = indexPath;
     cell.representedAssetIdentifier = nil;
     if(indexPath.item < mCustomPickers.count){
-        [cell setChecked:NSNotFound withAnimation:NO withIncrementalCount:NO];
+        [cell setChecked:NSNotFound withAnimation:NO withIncrementalCount:NO shouldShowCheck:NO];
         cell.thumbnailImage = [mCustomPickers objectAtIndex:indexPath.item];
     }else{
         BOOL isAnimCell = curAnimIndex == (indexPath.item - mCustomPickers.count);
@@ -203,7 +210,7 @@ static CGSize AssetGridThumbnailSize;
         }
         PHAsset *asset = self.assetsFetchResults[indexPath.item - mCustomPickers.count];
         
-        [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]] withAnimation:isAnimCell withIncrementalCount:mIncrementalCount];
+        [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]] withAnimation:isAnimCell withIncrementalCount:mIncrementalCount shouldShowCheck:YES];
         cell.representedAssetIdentifier = asset.localIdentifier;
         
         // Request an image for the asset from the PHCachingImageManager.

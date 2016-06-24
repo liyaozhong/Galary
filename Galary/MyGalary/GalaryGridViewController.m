@@ -24,6 +24,8 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
     CustomPickerHandler mCustomPickerHandler;
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
+@property (nonatomic, strong) CheckView * bottomCheckView;
+@property (nonatomic, strong) UIButton * bottomButton;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 @property CGRect previousPreheatRect;
@@ -73,11 +75,27 @@ static CGSize AssetGridThumbnailSize;
     flowLayout.itemSize = CGSizeMake(self.view.bounds.size.width/4, self.view.bounds.size.width/4);
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 40) collectionViewLayout:flowLayout];
     [self.view addSubview:_collectionView];
+    _collectionView.backgroundColor = [UIColor colorWithRed:242.0f/255 green:242.0f/255 blue:242.0f/255 alpha:1];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [_collectionView registerNib:[UINib nibWithNibName:@"GalaryGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"GalaryGridCollectionViewCell"];
+    
+    UIView * bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
+    bottomView.backgroundColor = [UIColor colorWithRed:247.0f/255 green:247.0f/255 blue:247.0f/255 alpha:1];
+    [self.view addSubview:bottomView];
+    _bottomButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 5 - 50, 0, 50, 40)];
+    [_bottomButton setTitleColor:[UIColor colorWithRed:74.0f/255 green:74.0f/255 blue:74.0f/255 alpha:1] forState:UIControlStateNormal];
+    [_bottomButton setTitle:@"发送" forState:UIControlStateNormal];
+    [_bottomButton addTarget:self action:@selector(onSendClick) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:_bottomButton];
+    _bottomCheckView = [[CheckView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 5 - 50 - 5 - 20, 10, 20, 20)];
+    _bottomCheckView.backgroundColor = [UIColor clearColor];
+    _bottomCheckView.hidden = YES;
+    [_bottomCheckView setChecked:YES];
+    [_bottomCheckView setShowIndex:YES];
+    [bottomView addSubview:_bottomCheckView];
 }
 
 - (void) cancel
@@ -96,6 +114,32 @@ static CGSize AssetGridThumbnailSize;
 {
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
+    [self updateBottomView];
+}
+
+- (void) onSendClick
+{
+    if(mPickComplete){
+        NSMutableArray<PHAsset *> * assets = [NSMutableArray new];
+        for(NSNumber * index in self.checkedImgs){
+            PHAsset *asset = self.assetsFetchResults[index.intValue];
+            [assets addObject:asset];
+        }
+        mPickComplete(assets);
+    }
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) updateBottomView
+{
+    NSUInteger count = self.checkedImgs.count;
+    _bottomButton.enabled = count > 0;
+    if(count > 0){
+        _bottomCheckView.hidden = NO;
+        [_bottomCheckView setIndex:count];
+    }else{
+        _bottomCheckView.hidden = YES;
+    }
 }
 
 - (NSMutableArray *) checkedImgs
@@ -168,6 +212,7 @@ static CGSize AssetGridThumbnailSize;
         curAnimIndex = indexPath.item - mCustomPickers.count;
     }
     [self.collectionView reloadData];
+    [self updateBottomView];
 }
 
 #pragma mark - UICollectionViewDelegate

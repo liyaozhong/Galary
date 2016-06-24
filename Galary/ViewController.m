@@ -29,7 +29,7 @@
 - (IBAction)gotoGalary:(id)sender
 {
     [[GalaryHelper sharedInstance] presentGalary:self withIncrementalCount:NO withPickComplete:^(NSArray<PHAsset *> *assets) {
-        
+        NSLog(@"xxxxx %lu selected", (unsigned long)assets.count);
     } withCustomPicker:@[[UIImage imageNamed:@"take_photo"]] withCustomPickerHandler:^(NSUInteger index) {
         [[[GalaryHelper sharedInstance] getCurNav] pushViewController:[TextViewController new] animated:YES];
     }];

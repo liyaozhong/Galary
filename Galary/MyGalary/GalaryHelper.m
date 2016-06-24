@@ -34,6 +34,11 @@
     self.curNav = nav;
 }
 
+- (void) dismiss
+{
+    [self.curNav dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (UINavigationController *) getCurNav
 {
     return _curNav;

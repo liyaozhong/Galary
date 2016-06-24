@@ -35,6 +35,11 @@ static CGSize AssetGridThumbnailSize;
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    if(self.centerTitle){
+        self.navigationItem.title = self.centerTitle;
+    }else{
+        self.navigationItem.title = NSLocalizedString(@"All Photos", @"");
+    }
     if(!_assetsFetchResults){
         PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
         allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];

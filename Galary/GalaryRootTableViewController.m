@@ -20,6 +20,8 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.rightBarButtonItem = rightButton;
     [self.tableView registerNib:[UINib nibWithNibName:@"GalaryRootTableViewCell" bundle:nil] forCellReuseIdentifier:@"GalaryRootTableViewCell"];
     PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
     allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
@@ -32,6 +34,11 @@
     self.sectionFetchResults = @[allPhotos, recentAdded, screenShots];
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+}
+
+- (void) cancel
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc {
@@ -101,15 +108,16 @@
     GalaryGridViewController *assetGridViewController = [GalaryGridViewController new];
     if (indexPath.section == 0) {
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
+        assetGridViewController.centerTitle = NSLocalizedString(@"All Photos", @"");
         assetGridViewController.assetsFetchResults = fetchResult;
     }else{
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
         PHCollection *collection = fetchResult[indexPath.row];
         PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+        assetGridViewController.centerTitle = collection.localizedTitle;
         assetGridViewController.assetsFetchResults = assetsFetchResult;
     }
-    
     [self.navigationController pushViewController:assetGridViewController animated:YES];
 }
 

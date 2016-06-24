@@ -10,5 +10,6 @@
 @import Photos;
 
 @interface GalaryGridViewController : UIViewController
+@property (nonatomic, copy) NSString * centerTitle;
 @property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @end

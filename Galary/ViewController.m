@@ -27,7 +27,9 @@
 
 - (IBAction)gotoGalary:(id)sender
 {
-    [GalaryHelper presentGalary:self withIncrementalCount:YES withPickComplete:^(NSArray<PHAsset *> *assets) {
+    [[GalaryHelper sharedInstance] presentGalary:self withIncrementalCount:YES withPickComplete:^(NSArray<PHAsset *> *assets) {
+        
+    } withCustomPicker:nil withCustomPickerHandler:^(NSUInteger index) {
         
     }];
 }

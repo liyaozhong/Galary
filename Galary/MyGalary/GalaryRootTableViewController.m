@@ -11,23 +11,28 @@
 #import "GalaryRootTableViewCell.h"
 
 typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
+typedef void(^CustomPickerHandler)(NSUInteger index);
 
 @interface GalaryRootTableViewController ()<PHPhotoLibraryChangeObserver>
 {
     PickCompleteBlock mPickComplete;
     BOOL mIncrementalCount;
+    NSArray * mCustomPickers;
+    CustomPickerHandler mCustomPickerHandler;
 }
 @property (nonatomic, strong) NSArray *sectionFetchResults;
 @end
 
 @implementation GalaryRootTableViewController
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler
 {
     self = [super init];
     if(self){
         mPickComplete = pickComplete;
         mIncrementalCount = incrementalCount;
+        mCustomPickers = customPickers;
+        mCustomPickerHandler = customPickerHandler;
     }
     return self;
 }
@@ -120,7 +125,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 - (void) tableView:(UITableView *)cell didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GalaryGridViewController *assetGridViewController = [[GalaryGridViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete];
+    GalaryGridViewController *assetGridViewController = [[GalaryGridViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete withCustomPicker:mCustomPickers withCustomPickerHandler:mCustomPickerHandler];
     if (indexPath.section == 0) {
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
         assetGridViewController.centerTitle = NSLocalizedString(@"All Photos", @"");

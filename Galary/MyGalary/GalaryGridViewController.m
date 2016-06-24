@@ -13,12 +13,15 @@
 #import "GalaryPagingViewController.h"
 
 typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
+typedef void(^CustomPickerHandler)(NSUInteger index);
 
 @interface GalaryGridViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, PHPhotoLibraryChangeObserver, GalaryGridCollectionViewCellDelegate>
 {
     NSUInteger curAnimIndex;
     PickCompleteBlock mPickComplete;
     BOOL mIncrementalCount;
+    NSArray * mCustomPickers;
+    CustomPickerHandler mCustomPickerHandler;
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;
@@ -30,12 +33,14 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 static CGSize AssetGridThumbnailSize;
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler
 {
     self = [super init];
     if(self){
         mPickComplete = pickComplete;
         mIncrementalCount = incrementalCount;
+        mCustomPickers = customPickers;
+        mCustomPickerHandler = customPickerHandler;
     }
     return self;
 }

@@ -27,6 +27,7 @@
 		C0E71A0C1D1D13680083E2BD /* NSIndexSet+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719FE1D1D13680083E2BD /* NSIndexSet+Convenience.m */; };
 		C0E71A0D1D1D13680083E2BD /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E71A001D1D13680083E2BD /* UICollectionView+Convenience.m */; };
 		C0E71A101D1D1A920083E2BD /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E71A0F1D1D1A920083E2BD /* TextViewController.m */; };
+		C0E71A121D1D1B850083E2BD /* Galary.podspec in Resources */ = {isa = PBXBuildFile; fileRef = C0E71A111D1D1B850083E2BD /* Galary.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		C0E71A001D1D13680083E2BD /* UICollectionView+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Convenience.m"; sourceTree = "<group>"; };
 		C0E71A0E1D1D1A920083E2BD /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		C0E71A0F1D1D1A920083E2BD /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		C0E71A111D1D1B850083E2BD /* Galary.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Galary.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				C0080F7E1D0FCDCE00D5846A /* Info.plist */,
 				C0E719EA1D1D13680083E2BD /* MyGalary */,
 				C0080F6D1D0FCDCE00D5846A /* Supporting Files */,
+				C0E71A111D1D1B850083E2BD /* Galary.podspec */,
 			);
 			path = Galary;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			files = (
 				C0080F7D1D0FCDCE00D5846A /* LaunchScreen.storyboard in Resources */,
 				C0E71A021D1D13680083E2BD /* galary_check@2x.png in Resources */,
+				C0E71A121D1D1B850083E2BD /* Galary.podspec in Resources */,
 				C0E71A0A1D1D13680083E2BD /* GalaryRootTableViewCell.xib in Resources */,
 				C0E71A031D1D13680083E2BD /* galary_check@3x.png in Resources */,
 				C0080F7A1D0FCDCE00D5846A /* Assets.xcassets in Resources */,

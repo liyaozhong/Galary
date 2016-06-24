@@ -11,7 +11,6 @@
 #import "NSIndexSet+Convenience.h"
 #import "UICollectionView+Convenience.h"
 #import "GalaryPagingViewController.h"
-@import Photos;
 @import PhotosUI;
 
 @interface GalaryGridViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, PHPhotoLibraryChangeObserver, GalaryGridCollectionViewCellDelegate>
@@ -20,7 +19,6 @@
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;
-@property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 @property CGRect previousPreheatRect;
 @end
@@ -37,9 +35,11 @@ static CGSize AssetGridThumbnailSize;
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
-    allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-    _assetsFetchResults = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:allPhotosOptions];
+    if(!_assetsFetchResults){
+        PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
+        allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        _assetsFetchResults = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:allPhotosOptions];
+    }
     self.imageManager = [[PHCachingImageManager alloc] init];
     [self resetCachedAssets];
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];

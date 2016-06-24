@@ -20,6 +20,8 @@
 		C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */; };
 		C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */; };
 		C0080F9C1D10031600D5846A /* CheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F9B1D10031600D5846A /* CheckView.m */; };
+		C0E719991D1CFB930083E2BD /* GalaryRootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */; };
+		C0E7199A1D1CFB930083E2BD /* GalaryRootTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */; };
 		C0FB6EB01D1CF849003A492C /* GalaryRootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,9 @@
 		C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryPagingViewController.m; sourceTree = "<group>"; };
 		C0080F9A1D10031600D5846A /* CheckView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckView.h; sourceTree = "<group>"; };
 		C0080F9B1D10031600D5846A /* CheckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckView.m; sourceTree = "<group>"; };
+		C0E719961D1CFB930083E2BD /* GalaryRootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewCell.h; sourceTree = "<group>"; };
+		C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewCell.m; sourceTree = "<group>"; };
+		C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalaryRootTableViewCell.xib; sourceTree = "<group>"; };
 		C0FB6EAE1D1CF849003A492C /* GalaryRootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewController.h; sourceTree = "<group>"; };
 		C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +101,9 @@
 				C0080F851D0FD45400D5846A /* GalaryGridViewController.m */,
 				C0080F941D0FE5E800D5846A /* GalaryPagingViewController.h */,
 				C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */,
+				C0E719961D1CFB930083E2BD /* GalaryRootTableViewCell.h */,
+				C0E719971D1CFB930083E2BD /* GalaryRootTableViewCell.m */,
+				C0E719981D1CFB930083E2BD /* GalaryRootTableViewCell.xib */,
 				C0080F891D0FD63A00D5846A /* GalaryGridCollectionViewCell.h */,
 				C0080F8A1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m */,
 				C0080F8B1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib */,
@@ -177,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0080F8D1D0FD63A00D5846A /* GalaryGridCollectionViewCell.xib in Resources */,
+				C0E7199A1D1CFB930083E2BD /* GalaryRootTableViewCell.xib in Resources */,
 				C0080F7D1D0FCDCE00D5846A /* LaunchScreen.storyboard in Resources */,
 				C0080F7A1D0FCDCE00D5846A /* Assets.xcassets in Resources */,
 				C0080F781D0FCDCE00D5846A /* Main.storyboard in Resources */,
@@ -190,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0E719991D1CFB930083E2BD /* GalaryRootTableViewCell.m in Sources */,
 				C0080F751D0FCDCE00D5846A /* ViewController.m in Sources */,
 				C0080F721D0FCDCE00D5846A /* AppDelegate.m in Sources */,
 				C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */,

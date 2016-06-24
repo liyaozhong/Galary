@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@import Photos;
 
 @interface GalaryGridViewController : UIViewController
-
+@property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @end

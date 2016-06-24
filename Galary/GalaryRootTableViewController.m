@@ -8,31 +8,28 @@
 
 #import "GalaryRootTableViewController.h"
 #import "GalaryGridViewController.h"
+#import "GalaryRootTableViewCell.h"
 @import Photos;
 
 @interface GalaryRootTableViewController ()<PHPhotoLibraryChangeObserver>
 @property (nonatomic, strong) NSArray *sectionFetchResults;
-@property (nonatomic, strong) NSArray *sectionLocalizedTitles;
 @end
 
 @implementation GalaryRootTableViewController
 
-static NSString * const AllPhotosReuseIdentifier = @"AllPhotosCell";
-static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
-
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    [self.tableView registerNib:[UINib nibWithNibName:@"GalaryRootTableViewCell" bundle:nil] forCellReuseIdentifier:@"GalaryRootTableViewCell"];
     PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
     allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
     PHFetchResult *allPhotos = [PHAsset fetchAssetsWithOptions:allPhotosOptions];
     
-    PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    PHFetchResult *recentAdded = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded options:nil];
     
-    PHFetchResult *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
+    PHFetchResult *screenShots = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumScreenshots options:nil];
     
-    self.sectionFetchResults = @[allPhotos, smartAlbums, topLevelUserCollections];
-    self.sectionLocalizedTitles = @[@"", NSLocalizedString(@"Smart Albums", @""), NSLocalizedString(@"Albums", @"")];
+    self.sectionFetchResults = @[allPhotos, recentAdded, screenShots];
     
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
 }
@@ -62,24 +59,58 @@ static NSString * const CollectionCellReuseIdentifier = @"CollectionCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = nil;
+    GalaryRootTableViewCell *cell = nil;
     
     if (indexPath.section == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:AllPhotosReuseIdentifier forIndexPath:indexPath];
-        cell.textLabel.text = NSLocalizedString(@"All Photos", @"");
+        cell = [tableView dequeueReusableCellWithIdentifier:@"GalaryRootTableViewCell" forIndexPath:indexPath];
+        cell.title.text = NSLocalizedString(@"All Photos", @"");
+        PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
+        PHAsset * asset = [fetchResult firstObject];
+        cell.representedAssetIdentifier = asset.localIdentifier;
+        [[[PHCachingImageManager alloc] init] requestImageForAsset:asset
+                targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill
+                    options:nil
+                    resultHandler:^(UIImage *result, NSDictionary *info) {
+                        if ([cell.representedAssetIdentifier isEqualToString:asset.localIdentifier]) {
+                                cell.thumb.image = result;
+                        }
+                    }];
     } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"GalaryRootTableViewCell" forIndexPath:indexPath];
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
         PHCollection *collection = fetchResult[indexPath.row];
-        
-        cell = [tableView dequeueReusableCellWithIdentifier:CollectionCellReuseIdentifier forIndexPath:indexPath];
-        cell.textLabel.text = collection.localizedTitle;
+        PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
+        PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+        PHAsset * asset = [assetsFetchResult firstObject];
+        cell.representedAssetIdentifier = asset.localIdentifier;
+        [[[PHCachingImageManager alloc] init] requestImageForAsset:asset
+             targetSize:CGSizeMake(80,80) contentMode:PHImageContentModeAspectFill
+            options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+                if ([cell.representedAssetIdentifier isEqualToString:asset.localIdentifier]) {
+                    cell.thumb.image = result;
+                }
+            }];
+        cell.title.text = collection.localizedTitle;
     }
     
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return self.sectionLocalizedTitles[section];
+- (void) tableView:(UITableView *)cell didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GalaryGridViewController *assetGridViewController = [GalaryGridViewController new];
+    if (indexPath.section == 0) {
+        PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
+        assetGridViewController.assetsFetchResults = fetchResult;
+    }else{
+        PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
+        PHCollection *collection = fetchResult[indexPath.row];
+        PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
+        PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+        assetGridViewController.assetsFetchResults = assetsFetchResult;
+    }
+    
+    [self.navigationController pushViewController:assetGridViewController animated:YES];
 }
 
 #pragma mark - PHPhotoLibraryChangeObserver

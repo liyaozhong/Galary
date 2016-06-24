@@ -153,12 +153,12 @@ static CGSize AssetGridThumbnailSize;
 
 - (void) galaryGridCell:(GalaryGridCollectionViewCell *)cell onCheckButtonClick:(NSIndexPath *)indexPath
 {
-    if([self.checkedImgs containsObject:[NSNumber numberWithInteger:indexPath.item]]){
-        [self.checkedImgs removeObject:[NSNumber numberWithInteger:indexPath.item]];
+    if([self.checkedImgs containsObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]]){
+        [self.checkedImgs removeObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]];
         curAnimIndex = NSNotFound;
     }else{
-        [self.checkedImgs addObject:[NSNumber numberWithInteger:indexPath.item]];
-        curAnimIndex = indexPath.item;
+        [self.checkedImgs addObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]];
+        curAnimIndex = indexPath.item - mCustomPickers.count;
     }
     [self.collectionView reloadData];
 }
@@ -167,46 +167,57 @@ static CGSize AssetGridThumbnailSize;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete];
-    galaryPaging.assetsFetchResults = self.assetsFetchResults;
-    galaryPaging.index = indexPath.item;
-    galaryPaging.checkedImgs = self.checkedImgs;
-    [self.navigationController pushViewController:galaryPaging animated:YES];
+    if(indexPath.item < mCustomPickers.count){
+        if(mCustomPickerHandler){
+            mCustomPickerHandler(indexPath.item);
+        }
+    }else{
+        GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete];
+        galaryPaging.assetsFetchResults = self.assetsFetchResults;
+        galaryPaging.index = indexPath.item - mCustomPickers.count;
+        galaryPaging.checkedImgs = self.checkedImgs;
+        [self.navigationController pushViewController:galaryPaging animated:YES];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.assetsFetchResults.count;
+    return mCustomPickers.count + self.assetsFetchResults.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PHAsset *asset = self.assetsFetchResults[indexPath.item];
-    
-    // Dequeue an AAPLGridViewCell.
     GalaryGridCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GalaryGridCollectionViewCell" forIndexPath:indexPath];
     cell.delegate = self;
     cell.indexPath = indexPath;
-    BOOL isAnimCell = curAnimIndex == indexPath.item;
-    if(isAnimCell){
-        curAnimIndex = NSNotFound;
+    cell.representedAssetIdentifier = nil;
+    if(indexPath.item < mCustomPickers.count){
+        [cell setChecked:NSNotFound withAnimation:NO withIncrementalCount:NO];
+        cell.thumbnailImage = [mCustomPickers objectAtIndex:indexPath.item];
+    }else{
+        BOOL isAnimCell = curAnimIndex == (indexPath.item - mCustomPickers.count);
+        if(isAnimCell){
+            curAnimIndex = NSNotFound;
+        }
+        PHAsset *asset = self.assetsFetchResults[indexPath.item - mCustomPickers.count];
+        
+        [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]] withAnimation:isAnimCell withIncrementalCount:mIncrementalCount];
+        cell.representedAssetIdentifier = asset.localIdentifier;
+        
+        // Request an image for the asset from the PHCachingImageManager.
+        [self.imageManager requestImageForAsset:asset
+                                     targetSize:AssetGridThumbnailSize
+                                    contentMode:PHImageContentModeAspectFill
+                                        options:nil
+                                  resultHandler:^(UIImage *result, NSDictionary *info) {
+                                      // Set the cell's thumbnail image if it's still showing the same asset.
+                                      if ([cell.representedAssetIdentifier isEqualToString:asset.localIdentifier]) {
+                                          cell.thumbnailImage = result;
+                                      }
+                                  }];
     }
-    [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item]] withAnimation:isAnimCell withIncrementalCount:mIncrementalCount];
-    cell.representedAssetIdentifier = asset.localIdentifier;
-    
-    // Request an image for the asset from the PHCachingImageManager.
-    [self.imageManager requestImageForAsset:asset
-                                 targetSize:AssetGridThumbnailSize
-                                contentMode:PHImageContentModeAspectFill
-                                    options:nil
-                              resultHandler:^(UIImage *result, NSDictionary *info) {
-                                  // Set the cell's thumbnail image if it's still showing the same asset.
-                                  if ([cell.representedAssetIdentifier isEqualToString:asset.localIdentifier]) {
-                                      cell.thumbnailImage = result;
-                                  }
-                              }];
     
     return cell;
 }
@@ -307,8 +318,10 @@ static CGSize AssetGridThumbnailSize;
     
     NSMutableArray *assets = [NSMutableArray arrayWithCapacity:indexPaths.count];
     for (NSIndexPath *indexPath in indexPaths) {
-        PHAsset *asset = self.assetsFetchResults[indexPath.item];
-        [assets addObject:asset];
+        if(indexPath.item >= mCustomPickers.count){
+            PHAsset *asset = self.assetsFetchResults[indexPath.item - mCustomPickers.count];
+            [assets addObject:asset];
+        }
     }
     
     return assets;

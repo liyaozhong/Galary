@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "GalaryHelper.h"
+#import "TextViewController.h"
 
 @interface ViewController ()
 
@@ -29,8 +30,8 @@
 {
     [[GalaryHelper sharedInstance] presentGalary:self withIncrementalCount:YES withPickComplete:^(NSArray<PHAsset *> *assets) {
         
-    } withCustomPicker:nil withCustomPickerHandler:^(NSUInteger index) {
-        
+    } withCustomPicker:@[[UIImage imageNamed:@"take_photo"]] withCustomPickerHandler:^(NSUInteger index) {
+        [[[GalaryHelper sharedInstance] getCurNav] pushViewController:[TextViewController new] animated:YES];
     }];
 }
 

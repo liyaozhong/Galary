@@ -34,4 +34,9 @@
     self.curNav = nav;
 }
 
+- (UINavigationController *) getCurNav
+{
+    return _curNav;
+}
+
 @end

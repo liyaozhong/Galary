@@ -15,4 +15,7 @@
 + (instancetype) sharedInstance;
 
 - (void) presentGalary : (UIViewController *) viewController withIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler;
+
+- (UINavigationController *) getCurNav;
+
 @end

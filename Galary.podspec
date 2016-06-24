@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 s.name         = 'Galary'
-s.version      = '1.0.1'
-s.summary      = '仿微信选择图片，支持自定义'
+s.version      = '1.0.2'
+s.summary      = '使用Photos Framework制作的仿微信图片选择器，支持自定义嵌入其他功能页面'
 s.homepage     = 'https://github.com/liyaozhong/Galary'
 s.license      = 'MIT'
 s.author       = { 'liyaozhong' => 'yun.zhongyue@163.com' }

@@ -20,6 +20,7 @@
 		C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F921D0FDB0700D5846A /* UICollectionView+Convenience.m */; };
 		C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */; };
 		C0080F9C1D10031600D5846A /* CheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0080F9B1D10031600D5846A /* CheckView.m */; };
+		C0FB6EB01D1CF849003A492C /* GalaryRootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,8 @@
 		C0080F951D0FE5E800D5846A /* GalaryPagingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryPagingViewController.m; sourceTree = "<group>"; };
 		C0080F9A1D10031600D5846A /* CheckView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckView.h; sourceTree = "<group>"; };
 		C0080F9B1D10031600D5846A /* CheckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckView.m; sourceTree = "<group>"; };
+		C0FB6EAE1D1CF849003A492C /* GalaryRootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalaryRootTableViewController.h; sourceTree = "<group>"; };
+		C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalaryRootTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				C0080F7B1D0FCDCE00D5846A /* LaunchScreen.storyboard */,
 				C0080F7E1D0FCDCE00D5846A /* Info.plist */,
 				C0080F6D1D0FCDCE00D5846A /* Supporting Files */,
+				C0FB6EAE1D1CF849003A492C /* GalaryRootTableViewController.h */,
+				C0FB6EAF1D1CF849003A492C /* GalaryRootTableViewController.m */,
 				C0080F841D0FD45400D5846A /* GalaryGridViewController.h */,
 				C0080F851D0FD45400D5846A /* GalaryGridViewController.m */,
 				C0080F941D0FE5E800D5846A /* GalaryPagingViewController.h */,
@@ -190,6 +195,7 @@
 				C0080F931D0FDB0700D5846A /* UICollectionView+Convenience.m in Sources */,
 				C0080F8C1D0FD63A00D5846A /* GalaryGridCollectionViewCell.m in Sources */,
 				C0080F961D0FE5E800D5846A /* GalaryPagingViewController.m in Sources */,
+				C0FB6EB01D1CF849003A492C /* GalaryRootTableViewController.m in Sources */,
 				C0080F861D0FD45400D5846A /* GalaryGridViewController.m in Sources */,
 				C0080F901D0FD9E900D5846A /* NSIndexSet+Convenience.m in Sources */,
 				C0080F6F1D0FCDCE00D5846A /* main.m in Sources */,

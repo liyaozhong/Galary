@@ -8,6 +8,7 @@
 
 #import "GalaryPagingViewController.h"
 #import "CheckView.h"
+#import "ZommableImageView.h"
 
 typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
@@ -15,14 +16,14 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 {
     PHImageRequestOptions *fastOptions;
     PHImageRequestOptions *highQualityOptions;
-    UIImageView * curCenterImageView;
+    ZommableImageView * curCenterImageView;
     PickCompleteBlock mPickComplete;
     BOOL mIncrementalCount;
 }
 @property (nonatomic, strong) UIScrollView * pagingSrollView;
-@property (nonatomic, strong) UIImageView * imageView1;
-@property (nonatomic, strong) UIImageView * imageView2;
-@property (nonatomic, strong) UIImageView * imageView3;
+@property (nonatomic, strong) ZommableImageView * imageView1;
+@property (nonatomic, strong) ZommableImageView * imageView2;
+@property (nonatomic, strong) ZommableImageView * imageView3;
 @property (nonatomic, strong) CheckView * checkBtn;
 @end
 
@@ -83,12 +84,15 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     }else if(self.index == self.assetsFetchResults.count - 1){
         position = self.assetsFetchResults.count - 2;
     }
-    _imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * (position - 1), 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
-    _imageView1.contentMode = UIViewContentModeScaleAspectFit;
-    _imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * position, 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
-    _imageView2.contentMode = UIViewContentModeScaleAspectFit;
-    _imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * (position + 1), 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
-    _imageView3.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView1 = [[ZommableImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * (position - 1), 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
+    _imageView1.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    _imageView1.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView2 = [[ZommableImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * position, 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
+    _imageView2.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    _imageView2.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView3 = [[ZommableImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * (position + 1), 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
+    _imageView3.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    _imageView3.contentMode = UIViewContentModeScaleAspectFit;
     [_pagingSrollView addSubview:_imageView1];
     [_pagingSrollView addSubview:_imageView2];
     [_pagingSrollView addSubview:_imageView3];
@@ -151,12 +155,12 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     [self updateTitle];
 }
 
-- (void) requestTargetImage : (UIImageView *) imageView index : (NSInteger) index
+- (void) requestTargetImage : (ZommableImageView *) imageView index : (NSInteger) index
 {
     if(index < 0 || self.assetsFetchResults.count <= index){
         return;
     }
-    imageView.image = nil;
+    [imageView setUpImage:nil];
     imageView.tag = 0;
     [[PHImageManager defaultManager] cancelImageRequest:(PHImageRequestID)(imageView.tag)];
     __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self.assetsFetchResults objectAtIndex:index] targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:fastOptions resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -164,13 +168,13 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
             return;
         }
         if(imageView.tag == requestID){
-            imageView.image = result;
+            [imageView setUpImage:result];
         }
     }];
     imageView.tag = requestID;
 }
 
-- (void) showHighQualityImage : (UIImageView *) imageView index : (NSInteger) index
+- (void) showHighQualityImage : (ZommableImageView *) imageView index : (NSInteger) index
 {
     if(index < 0 || self.assetsFetchResults.count <= index){
         return;
@@ -181,7 +185,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
             return;
         }
         if(imageView.tag == requestID){
-            imageView.image = result;
+            [imageView setUpImage:result];
         }
     }];
     imageView.tag = requestID;

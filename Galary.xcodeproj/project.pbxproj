@@ -28,6 +28,7 @@
 		C0E71A0D1D1D13680083E2BD /* UICollectionView+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E71A001D1D13680083E2BD /* UICollectionView+Convenience.m */; };
 		C0E71A101D1D1A920083E2BD /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E71A0F1D1D1A920083E2BD /* TextViewController.m */; };
 		C0E71A161D1D21F70083E2BD /* Galary.podspec in Resources */ = {isa = PBXBuildFile; fileRef = C0E71A151D1D21F70083E2BD /* Galary.podspec */; };
+		C0EC630B1D22937400686DC9 /* ZommableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EC630A1D22937400686DC9 /* ZommableImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,8 @@
 		C0E71A0E1D1D1A920083E2BD /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		C0E71A0F1D1D1A920083E2BD /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
 		C0E71A151D1D21F70083E2BD /* Galary.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Galary.podspec; sourceTree = "<group>"; };
+		C0EC63091D22937400686DC9 /* ZommableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZommableImageView.h; sourceTree = "<group>"; };
+		C0EC630A1D22937400686DC9 /* ZommableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZommableImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,8 @@
 				C0E719FE1D1D13680083E2BD /* NSIndexSet+Convenience.m */,
 				C0E719FF1D1D13680083E2BD /* UICollectionView+Convenience.h */,
 				C0E71A001D1D13680083E2BD /* UICollectionView+Convenience.m */,
+				C0EC63091D22937400686DC9 /* ZommableImageView.h */,
+				C0EC630A1D22937400686DC9 /* ZommableImageView.m */,
 			);
 			path = MyGalary;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 				C0E71A0B1D1D13680083E2BD /* GalaryRootTableViewController.m in Sources */,
 				C0E71A0C1D1D13680083E2BD /* NSIndexSet+Convenience.m in Sources */,
 				C0E71A041D1D13680083E2BD /* GalaryGridCollectionViewCell.m in Sources */,
+				C0EC630B1D22937400686DC9 /* ZommableImageView.m in Sources */,
 				C0E71A091D1D13680083E2BD /* GalaryRootTableViewCell.m in Sources */,
 				C0080F6F1D0FCDCE00D5846A /* main.m in Sources */,
 				C0E71A0D1D1D13680083E2BD /* UICollectionView+Convenience.m in Sources */,

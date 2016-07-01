@@ -19,6 +19,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     ZommableImageView * curCenterImageView;
     PickCompleteBlock mPickComplete;
     BOOL mIncrementalCount;
+    int mMaxCount;
 }
 @property (nonatomic, strong) UIScrollView * pagingSrollView;
 @property (nonatomic, strong) ZommableImageView * imageView1;
@@ -29,12 +30,13 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 @implementation GalaryPagingViewController
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete maxCount : (int) maxCount
 {
     self = [super init];
     if(self){
         mPickComplete = pickComplete;
         mIncrementalCount = incrementalCount;
+        mMaxCount = maxCount;
     }
     return self;
 }
@@ -149,6 +151,10 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 {
     if([self.checkedImgs containsObject:[NSNumber numberWithInteger:self.index]]){
         [self.checkedImgs removeObject:[NSNumber numberWithInteger:self.index]];
+    }else if(self.checkedImgs.count >= mMaxCount){
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"最多选%d张图片", mMaxCount] preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
     }else{
         [self.checkedImgs addObject:[NSNumber numberWithInteger:self.index]];
     }

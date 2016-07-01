@@ -22,6 +22,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
     BOOL mIncrementalCount;
     NSArray * mCustomPickers;
     CustomPickerHandler mCustomPickerHandler;
+    int mMaxCount;
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property (nonatomic, strong) CheckView * bottomCheckView;
@@ -35,7 +36,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
 
 static CGSize AssetGridThumbnailSize;
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler maxCount : (int) maxCount
 {
     self = [super init];
     if(self){
@@ -43,6 +44,7 @@ static CGSize AssetGridThumbnailSize;
         mIncrementalCount = incrementalCount;
         mCustomPickers = customPickers;
         mCustomPickerHandler = customPickerHandler;
+        mMaxCount = maxCount;
     }
     return self;
 }
@@ -207,6 +209,10 @@ static CGSize AssetGridThumbnailSize;
     if([self.checkedImgs containsObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]]){
         [self.checkedImgs removeObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]];
         curAnimIndex = NSNotFound;
+    }else if(self.checkedImgs.count >= mMaxCount){
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"最多选%d张图片", mMaxCount] preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
     }else{
         [self.checkedImgs addObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]];
         curAnimIndex = indexPath.item - mCustomPickers.count;
@@ -224,7 +230,7 @@ static CGSize AssetGridThumbnailSize;
             mCustomPickerHandler(indexPath.item);
         }
     }else{
-        GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete];
+        GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete maxCount:mMaxCount];
         galaryPaging.assetsFetchResults = self.assetsFetchResults;
         galaryPaging.index = indexPath.item - mCustomPickers.count;
         galaryPaging.checkedImgs = self.checkedImgs;

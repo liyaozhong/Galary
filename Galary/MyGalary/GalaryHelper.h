@@ -15,6 +15,7 @@
 + (instancetype) sharedInstance;
 
 - (void) presentGalary : (UIViewController *) viewController withIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler maxCount : (int) maxCount;
+- (void) presentPagingGalary : (UIViewController *) viewController withIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withAssets : (NSArray<PHAsset*>*) assets index : (NSInteger) index;
 
 - (void) dismiss;
 

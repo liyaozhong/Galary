@@ -11,7 +11,7 @@
 #import "TextViewController.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) NSArray * assets;
 @end
 
 @implementation ViewController
@@ -28,11 +28,24 @@
 
 - (IBAction)gotoGalary:(id)sender
 {
-    [[GalaryHelper sharedInstance] presentGalary:self withIncrementalCount:NO withPickComplete:^(NSArray<PHAsset *> *assets) {
+    if(!self.assets){
+        [[GalaryHelper sharedInstance] presentGalary:self withIncrementalCount:NO withPickComplete:^(NSArray<PHAsset *> *assets) {
+            NSLog(@"xxxxx %lu selected", (unsigned long)assets.count);
+            self.assets = assets;
+        } withCustomPicker:@[[UIImage imageNamed:@"take_photo"]] withCustomPickerHandler:^(NSUInteger index) {
+            [[[GalaryHelper sharedInstance] getCurNav] pushViewController:[TextViewController new] animated:YES];
+        } maxCount:5];
+    }else{
+        [self showPagingGalary];
+    }
+}
+
+- (void) showPagingGalary
+{
+    [[GalaryHelper sharedInstance] presentPagingGalary:self withIncrementalCount:NO withPickComplete:^(NSArray<PHAsset *> *assets) {
         NSLog(@"xxxxx %lu selected", (unsigned long)assets.count);
-    } withCustomPicker:@[[UIImage imageNamed:@"take_photo"]] withCustomPickerHandler:^(NSUInteger index) {
-        [[[GalaryHelper sharedInstance] getCurNav] pushViewController:[TextViewController new] animated:YES];
-    } maxCount:5];
+        self.assets = nil;
+    } withAssets:self.assets index:0];
 }
 
 @end

@@ -47,6 +47,9 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if(self.navigationController && self.navigationController.viewControllers.count == 1){
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(leftTitleClick)];
+    }
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
@@ -58,6 +61,11 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     highQualityOptions = [[PHImageRequestOptions alloc] init];
     highQualityOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     highQualityOptions.networkAccessAllowed = YES;
+}
+
+- (void) leftTitleClick
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) setupView
@@ -75,7 +83,11 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     self.navigationItem.rightBarButtonItem = rightTitleBtn;
     _pagingSrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _pagingSrollView.delegate = self;
-    _pagingSrollView.contentSize = CGSizeMake(self.view.bounds.size.width * self.assetsFetchResults.count, 0);
+    if(self.assetsFetchResults){
+        _pagingSrollView.contentSize = CGSizeMake(self.view.bounds.size.width * self.assetsFetchResults.count, 0);
+    }else if(self.assets){
+        _pagingSrollView.contentSize = CGSizeMake(self.view.bounds.size.width * self.assets.count, 0);
+    }
     _pagingSrollView.showsHorizontalScrollIndicator = NO;
     _pagingSrollView.pagingEnabled = YES;
     _pagingSrollView.contentOffset = CGPointMake(self.view.bounds.size.width * self.index, 0);
@@ -83,8 +95,12 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     NSInteger position = self.index;
     if(self.index == 0){
         position = 1;
-    }else if(self.index == self.assetsFetchResults.count - 1){
-        position = self.assetsFetchResults.count - 2;
+    }else {
+        if(self.assetsFetchResults && self.index == self.assetsFetchResults.count - 1){
+            position = self.assetsFetchResults.count - 2;
+        }else if(self.assets && self.index == self.assets.count - 1){
+            position = self.assets.count - 2;
+        }
     }
     _imageView1 = [[ZommableImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width * (position - 1), 0, self.view.bounds.size.width, self.pagingSrollView.bounds.size.height)];
     _imageView1.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -106,7 +122,11 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
         [self requestTargetImage:self.imageView1 index:self.index];
         [self requestTargetImage:self.imageView2 index:self.index+1];
         [self requestTargetImage:self.imageView3 index:self.index+2];
-    }else if(self.index == self.assetsFetchResults.count - 1){
+    }else if(self.assetsFetchResults && self.index == self.assetsFetchResults.count - 1){
+        [self requestTargetImage:self.imageView3 index:self.index];
+        [self requestTargetImage:self.imageView2 index:self.index-1];
+        [self requestTargetImage:self.imageView1 index:self.index-2];
+    }else if(self.assets && self.index == self.assets.count - 1){
         [self requestTargetImage:self.imageView3 index:self.index];
         [self requestTargetImage:self.imageView2 index:self.index-1];
         [self requestTargetImage:self.imageView1 index:self.index-2];
@@ -122,10 +142,30 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     [super viewDidAppear:animated];
     if(self.index == 0){
         [self showHighQualityImage:self.imageView1 index:self.index];
-    }else if(self.index == self.assetsFetchResults.count - 1){
+    }else if(self.assetsFetchResults && self.index == self.assetsFetchResults.count - 1){
+        [self showHighQualityImage:self.imageView3 index:self.index];
+    }else if(self.assets && self.index == self.assets.count - 1){
         [self showHighQualityImage:self.imageView3 index:self.index];
     }else{
         [self showHighQualityImage:self.imageView2 index:self.index];
+    }
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if(mPickComplete){
+        NSMutableArray * assets = [NSMutableArray new];
+        if(self.assets){
+            for(NSNumber * index in self.checkedImgs){
+                [assets addObject:[self.assets objectAtIndex:index.intValue]];
+            }
+        }else if(self.assetsFetchResults){
+            for(NSNumber * index in self.checkedImgs){
+                [assets addObject:[self.assetsFetchResults objectAtIndex:index.intValue]];
+            }
+        }
+        mPickComplete(assets);
     }
 }
 
@@ -163,13 +203,19 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 - (void) requestTargetImage : (ZommableImageView *) imageView index : (NSInteger) index
 {
-    if(index < 0 || self.assetsFetchResults.count <= index){
+    if(index < 0 || ((self.assetsFetchResults && self.assetsFetchResults.count <= index) || (self.assets && self.assets.count <= index))){
         return;
     }
     [imageView setUpImage:nil];
     imageView.tag = 0;
     [[PHImageManager defaultManager] cancelImageRequest:(PHImageRequestID)(imageView.tag)];
-    __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self.assetsFetchResults objectAtIndex:index] targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:fastOptions resultHandler:^(UIImage *result, NSDictionary *info) {
+    PHAsset * asset = nil;
+    if(self.assets){
+        asset = [self.assets objectAtIndex:index];
+    }else{
+        asset = [self.assetsFetchResults objectAtIndex:index];
+    }
+    __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:fastOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         if (!result) {
             return;
         }
@@ -182,11 +228,17 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 - (void) showHighQualityImage : (ZommableImageView *) imageView index : (NSInteger) index
 {
-    if(index < 0 || self.assetsFetchResults.count <= index){
+    if(index < 0 || ((self.assetsFetchResults && self.assetsFetchResults.count <= index) || (self.assets && self.assets.count <= index))){
         return;
     }
     [[PHImageManager defaultManager] cancelImageRequest:(PHImageRequestID)(imageView.tag)];
-    __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:[self.assetsFetchResults objectAtIndex:index] targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:highQualityOptions resultHandler:^(UIImage *result, NSDictionary *info) {
+    PHAsset * asset = nil;
+    if(self.assets){
+        asset = [self.assets objectAtIndex:index];
+    }else{
+        asset = [self.assetsFetchResults objectAtIndex:index];
+    }
+    __block PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:[self targetSize] contentMode:PHImageContentModeAspectFit options:highQualityOptions resultHandler:^(UIImage *result, NSDictionary *info) {
         if (!result) {
             return;
         }
@@ -209,7 +261,13 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     if(curIndex == self.index){
         return;
     }
-    BOOL edge = self.index == 0 || self.index == self.assetsFetchResults.count - 1;
+    NSInteger edgeIndex = 0;
+    if(self.assets){
+        edgeIndex = self.assets.count - 1;
+    }else if(self.assetsFetchResults){
+        edgeIndex = self.assetsFetchResults.count - 1;
+    }
+    BOOL edge = self.index == 0 || self.index == edgeIndex;
     self.index = curIndex;
     [self updateTitle];
     CGFloat img1CenterGap = ABS(_imageView1.frame.origin.x - self.pagingSrollView.contentOffset.x);
@@ -217,8 +275,8 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     CGFloat img3CenterGap = ABS(_imageView3.frame.origin.x - self.pagingSrollView.contentOffset.x);
     if(img1CenterGap > self.pagingSrollView.bounds.size.width){
         if(_imageView1.frame.origin.x < _imageView2.frame.origin.x){
-            if(self.index >= self.assetsFetchResults.count - 1){
-                self.index = self.assetsFetchResults.count - 1;
+            if(self.index >= edgeIndex){
+                self.index = edgeIndex;
             }else if(!edge){
                 CGRect frame = _imageView1.frame;
                 _imageView1.frame = CGRectMake(frame.origin.x + self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
@@ -235,8 +293,8 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
         }
     }else if(img2CenterGap > self.pagingSrollView.bounds.size.width){
         if(_imageView2.frame.origin.x < _imageView1.frame.origin.x){
-            if(self.index >= self.assetsFetchResults.count - 1){
-                self.index = self.assetsFetchResults.count - 1;
+            if(self.index >= edgeIndex){
+                self.index = edgeIndex;
             }else if(!edge){
                 CGRect frame = _imageView2.frame;
                 _imageView2.frame = CGRectMake(frame.origin.x + self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
@@ -253,8 +311,8 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
         }
     }else if(img3CenterGap > self.pagingSrollView.bounds.size.width){
         if(_imageView3.frame.origin.x < _imageView1.frame.origin.x){
-            if(self.index >= self.assetsFetchResults.count - 1){
-                self.index = self.assetsFetchResults.count - 1;
+            if(self.index >= edgeIndex){
+                self.index = edgeIndex;
             }else if(!edge){
                 CGRect frame = _imageView3.frame;
                 _imageView3.frame = CGRectMake(frame.origin.x + self.pagingSrollView.bounds.size.width * 3, frame.origin.y, frame.size.width, frame.size.height);
@@ -312,6 +370,9 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 - (void)photoLibraryDidChange:(PHChange *)changeInstance {
     // Check if there are changes to the assets we are showing.
+    if(!self.assetsFetchResults){
+        return;
+    }
     PHFetchResultChangeDetails *collectionChanges = [changeInstance changeDetailsForFetchResult:self.assetsFetchResults];
     if (collectionChanges == nil) {
         return;

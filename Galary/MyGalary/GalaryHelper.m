@@ -9,6 +9,7 @@
 #import "GalaryHelper.h"
 #import "GalaryRootTableViewController.h"
 #import "GalaryGridViewController.h"
+#import "GalaryPagingViewController.h"
 
 @interface GalaryHelper ()
 @property (nonatomic, weak) UINavigationController * curNav;
@@ -32,6 +33,20 @@
     [nav setViewControllers:@[[[GalaryRootTableViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount], [[GalaryGridViewController alloc]  initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount]]];
     [viewController presentViewController:nav animated:YES completion:nil];
     self.curNav = nav;
+}
+
+- (void) presentPagingGalary : (UIViewController *) viewController withIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withAssets : (NSArray<PHAsset*>*) assets index : (NSInteger) index
+{
+    GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete maxCount:assets.count];
+    galaryPaging.assets = assets;
+    galaryPaging.index = index;
+    NSMutableArray * checkedImgs = [NSMutableArray new];
+    for(int i = 0 ; i < assets.count; i ++){
+        [checkedImgs addObject:[NSNumber numberWithInt:i]];
+    }
+    galaryPaging.checkedImgs = checkedImgs;
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:galaryPaging];
+    [viewController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void) dismiss

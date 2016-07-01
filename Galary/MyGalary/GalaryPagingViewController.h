@@ -10,6 +10,7 @@
 @import Photos;
 
 @interface GalaryPagingViewController : UIViewController
+@property (nonatomic, strong) NSArray * assets;
 @property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @property NSInteger index;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;

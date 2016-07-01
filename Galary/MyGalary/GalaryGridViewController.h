@@ -10,7 +10,7 @@
 @import Photos;
 
 @interface GalaryGridViewController : UIViewController
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler maxCount : (int) maxCount;
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler maxCount : (NSUInteger) maxCount;
 @property (nonatomic, copy) NSString * centerTitle;
 @property (nonatomic, strong) PHFetchResult *assetsFetchResults;
 @end

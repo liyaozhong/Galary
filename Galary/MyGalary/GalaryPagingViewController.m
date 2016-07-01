@@ -19,7 +19,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     ZommableImageView * curCenterImageView;
     PickCompleteBlock mPickComplete;
     BOOL mIncrementalCount;
-    int mMaxCount;
+    NSUInteger mMaxCount;
 }
 @property (nonatomic, strong) UIScrollView * pagingSrollView;
 @property (nonatomic, strong) ZommableImageView * imageView1;
@@ -30,7 +30,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 @implementation GalaryPagingViewController
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete maxCount : (int) maxCount
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete maxCount : (NSUInteger) maxCount
 {
     self = [super init];
     if(self){

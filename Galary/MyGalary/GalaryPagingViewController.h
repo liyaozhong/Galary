@@ -15,5 +15,5 @@
 @property NSInteger index;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete maxCount : (int) maxCount;
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete maxCount : (NSUInteger) maxCount;
 @end

@@ -22,7 +22,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
     BOOL mIncrementalCount;
     NSArray * mCustomPickers;
     CustomPickerHandler mCustomPickerHandler;
-    int mMaxCount;
+    NSUInteger mMaxCount;
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property (nonatomic, strong) CheckView * bottomCheckView;
@@ -36,7 +36,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
 
 static CGSize AssetGridThumbnailSize;
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler maxCount : (int) maxCount
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler maxCount : (NSUInteger) maxCount
 {
     self = [super init];
     if(self){

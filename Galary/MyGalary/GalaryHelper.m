@@ -37,7 +37,7 @@
 
 - (void) presentPagingGalary : (UIViewController *) viewController withIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withAssets : (NSArray<PHAsset*>*) assets index : (NSInteger) index
 {
-    GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete maxCount:assets.count];
+    GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete maxCount:(int)assets.count];
     galaryPaging.assets = assets;
     galaryPaging.index = index;
     NSMutableArray * checkedImgs = [NSMutableArray new];

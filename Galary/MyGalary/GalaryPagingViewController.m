@@ -65,6 +65,19 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 - (void) leftTitleClick
 {
+    if(mPickComplete){
+        NSMutableArray * assets = [NSMutableArray new];
+        if(self.assets){
+            for(NSNumber * index in self.checkedImgs){
+                [assets addObject:[self.assets objectAtIndex:index.intValue]];
+            }
+        }else if(self.assetsFetchResults){
+            for(NSNumber * index in self.checkedImgs){
+                [assets addObject:[self.assetsFetchResults objectAtIndex:index.intValue]];
+            }
+        }
+        mPickComplete(assets);
+    }
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -174,19 +187,6 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     if([self.checkedImgs containsObject:[NSNumber numberWithInteger:self.index]]){
         [self.checkedImgs removeObject:[NSNumber numberWithInteger:self.index]];
     }else if(self.checkedImgs.count >= mMaxCount){
-        if(mPickComplete){
-            NSMutableArray * assets = [NSMutableArray new];
-            if(self.assets){
-                for(NSNumber * index in self.checkedImgs){
-                    [assets addObject:[self.assets objectAtIndex:index.intValue]];
-                }
-            }else if(self.assetsFetchResults){
-                for(NSNumber * index in self.checkedImgs){
-                    [assets addObject:[self.assetsFetchResults objectAtIndex:index.intValue]];
-                }
-            }
-            mPickComplete(assets);
-        }
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"最多选%lu张图片", (unsigned long)mMaxCount] preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];

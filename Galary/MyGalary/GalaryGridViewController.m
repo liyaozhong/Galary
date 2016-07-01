@@ -22,8 +22,11 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
     BOOL mIncrementalCount;
     NSArray * mCustomPickers;
     CustomPickerHandler mCustomPickerHandler;
+    int mMaxCount;
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
+@property (nonatomic, strong) CheckView * bottomCheckView;
+@property (nonatomic, strong) UIButton * bottomButton;
 @property (nonatomic, strong) NSMutableArray * checkedImgs;
 @property (nonatomic, strong) PHCachingImageManager *imageManager;
 @property CGRect previousPreheatRect;
@@ -33,7 +36,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
 
 static CGSize AssetGridThumbnailSize;
 
-- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler
+- (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete withCustomPicker : (NSArray<UIImage*>*) customPickers withCustomPickerHandler : (void (^)(NSUInteger index)) customPickerHandler maxCount : (int) maxCount
 {
     self = [super init];
     if(self){
@@ -41,6 +44,7 @@ static CGSize AssetGridThumbnailSize;
         mIncrementalCount = incrementalCount;
         mCustomPickers = customPickers;
         mCustomPickerHandler = customPickerHandler;
+        mMaxCount = maxCount;
     }
     return self;
 }
@@ -58,6 +62,8 @@ static CGSize AssetGridThumbnailSize;
     }else{
         self.navigationItem.title = NSLocalizedString(@"All Photos", @"");
     }
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.rightBarButtonItem = rightButton;
     if(!_assetsFetchResults){
         PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
         allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
@@ -71,11 +77,32 @@ static CGSize AssetGridThumbnailSize;
     flowLayout.itemSize = CGSizeMake(self.view.bounds.size.width/4, self.view.bounds.size.width/4);
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 40) collectionViewLayout:flowLayout];
     [self.view addSubview:_collectionView];
+    _collectionView.backgroundColor = [UIColor colorWithRed:242.0f/255 green:242.0f/255 blue:242.0f/255 alpha:1];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [_collectionView registerNib:[UINib nibWithNibName:@"GalaryGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"GalaryGridCollectionViewCell"];
+    
+    UIView * bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
+    bottomView.backgroundColor = [UIColor colorWithRed:247.0f/255 green:247.0f/255 blue:247.0f/255 alpha:1];
+    [self.view addSubview:bottomView];
+    _bottomButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 5 - 50, 0, 50, 40)];
+    [_bottomButton setTitleColor:[UIColor colorWithRed:74.0f/255 green:74.0f/255 blue:74.0f/255 alpha:1] forState:UIControlStateNormal];
+    [_bottomButton setTitle:@"发送" forState:UIControlStateNormal];
+    [_bottomButton addTarget:self action:@selector(onSendClick) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:_bottomButton];
+    _bottomCheckView = [[CheckView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 5 - 50 - 5 - 20, 10, 20, 20)];
+    _bottomCheckView.backgroundColor = [UIColor clearColor];
+    _bottomCheckView.hidden = YES;
+    [_bottomCheckView setChecked:YES];
+    [_bottomCheckView setShowIndex:YES];
+    [bottomView addSubview:_bottomCheckView];
+}
+
+- (void) cancel
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -89,6 +116,32 @@ static CGSize AssetGridThumbnailSize;
 {
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
+    [self updateBottomView];
+}
+
+- (void) onSendClick
+{
+    if(mPickComplete){
+        NSMutableArray<PHAsset *> * assets = [NSMutableArray new];
+        for(NSNumber * index in self.checkedImgs){
+            PHAsset *asset = self.assetsFetchResults[index.intValue];
+            [assets addObject:asset];
+        }
+        mPickComplete(assets);
+    }
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) updateBottomView
+{
+    NSUInteger count = self.checkedImgs.count;
+    _bottomButton.enabled = count > 0;
+    if(count > 0){
+        _bottomCheckView.hidden = NO;
+        [_bottomCheckView setIndex:count];
+    }else{
+        _bottomCheckView.hidden = YES;
+    }
 }
 
 - (NSMutableArray *) checkedImgs
@@ -156,11 +209,16 @@ static CGSize AssetGridThumbnailSize;
     if([self.checkedImgs containsObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]]){
         [self.checkedImgs removeObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]];
         curAnimIndex = NSNotFound;
+    }else if(self.checkedImgs.count >= mMaxCount){
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"最多选%d张图片", mMaxCount] preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
     }else{
         [self.checkedImgs addObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]];
         curAnimIndex = indexPath.item - mCustomPickers.count;
     }
     [self.collectionView reloadData];
+    [self updateBottomView];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -172,7 +230,7 @@ static CGSize AssetGridThumbnailSize;
             mCustomPickerHandler(indexPath.item);
         }
     }else{
-        GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete];
+        GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete maxCount:mMaxCount];
         galaryPaging.assetsFetchResults = self.assetsFetchResults;
         galaryPaging.index = indexPath.item - mCustomPickers.count;
         galaryPaging.checkedImgs = self.checkedImgs;
@@ -194,7 +252,7 @@ static CGSize AssetGridThumbnailSize;
     cell.indexPath = indexPath;
     cell.representedAssetIdentifier = nil;
     if(indexPath.item < mCustomPickers.count){
-        [cell setChecked:NSNotFound withAnimation:NO withIncrementalCount:NO];
+        [cell setChecked:NSNotFound withAnimation:NO withIncrementalCount:NO shouldShowCheck:NO];
         cell.thumbnailImage = [mCustomPickers objectAtIndex:indexPath.item];
     }else{
         BOOL isAnimCell = curAnimIndex == (indexPath.item - mCustomPickers.count);
@@ -203,7 +261,7 @@ static CGSize AssetGridThumbnailSize;
         }
         PHAsset *asset = self.assetsFetchResults[indexPath.item - mCustomPickers.count];
         
-        [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]] withAnimation:isAnimCell withIncrementalCount:mIncrementalCount];
+        [cell setChecked:[self.checkedImgs indexOfObject:[NSNumber numberWithInteger:indexPath.item - mCustomPickers.count]] withAnimation:isAnimCell withIncrementalCount:mIncrementalCount shouldShowCheck:YES];
         cell.representedAssetIdentifier = asset.localIdentifier;
         
         // Request an image for the asset from the PHCachingImageManager.

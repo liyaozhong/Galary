@@ -11,5 +11,6 @@
 @interface CheckView : UIView
 - (void) setIndex : (NSUInteger) i;
 - (void) setChecked : (BOOL) c;
+- (BOOL) isChecked;
 - (void) setShowIndex:(BOOL)showIndex;
 @end

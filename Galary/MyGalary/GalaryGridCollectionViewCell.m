@@ -28,12 +28,13 @@
     self.imageView.image = thumbnailImage;
 }
 
-- (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation withIncrementalCount : (BOOL) incrementalCout
+- (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation withIncrementalCount : (BOOL) incrementalCout shouldShowCheck : (BOOL) shouldShowCheck
 {
+    self.checkView.hidden = !shouldShowCheck;
+    [self.checkView setShowIndex:incrementalCout];
     if(index != NSNotFound)
     {
-        self.checkView.hidden = NO;
-        [self.checkView setShowIndex:incrementalCout];
+        [self.checkView setChecked:YES];
         [self.checkView setIndex:index+1];
         if(withAnimation){
             self.checkView.bounds = CGRectMake(0, 0, CHECK_IMAGE_SIZE/2, CHECK_IMAGE_SIZE/2);
@@ -44,7 +45,7 @@
             } completion:nil];
         }
     }else{
-        self.checkView.hidden = YES;
+        [self.checkView setChecked:NO];
     }
 }
 

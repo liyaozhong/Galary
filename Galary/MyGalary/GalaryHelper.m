@@ -104,7 +104,7 @@
             return @"全部照片";
         }
     }
-    return nil;
+    return name;
 }
 
 @end

@@ -72,6 +72,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     [_bottomButton setTitle:@"发送" forState:UIControlStateNormal];
     [_bottomButton addTarget:self action:@selector(onBottomClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:_bottomButton];
+    [self updateTitle];
 }
 
 - (void) updateBottomView
@@ -116,7 +117,6 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     [bg addSubview:_checkBtn];
     _checkBtn.backgroundColor = [UIColor clearColor];
     UIBarButtonItem * rightTitleBtn = [[UIBarButtonItem alloc] initWithCustomView:bg];
-    [self updateTitle];
     self.navigationItem.rightBarButtonItem = rightTitleBtn;
     _pagingSrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     _pagingSrollView.delegate = self;

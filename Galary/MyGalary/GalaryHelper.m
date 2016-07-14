@@ -11,6 +11,22 @@
 #import "GalaryGridViewController.h"
 #import "GalaryPagingViewController.h"
 
+@interface PortraitNavViewController : UINavigationController
+
+@end
+
+@implementation PortraitNavViewController
+
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+@end
+
 @interface GalaryHelper ()
 @property (nonatomic, weak) UINavigationController * curNav;
 @end
@@ -33,7 +49,7 @@
         if (status == PHAuthorizationStatusAuthorized) {
             NSLog(@"Authorized");
             dispatch_async(dispatch_get_main_queue(), ^{
-                UINavigationController * nav = [[UINavigationController alloc] init];
+                PortraitNavViewController * nav = [[PortraitNavViewController alloc] init];
                 [nav setViewControllers:@[[[GalaryRootTableViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount], [[GalaryGridViewController alloc]  initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount]]];
                 [viewController presentViewController:nav animated:YES completion:nil];
                 self.curNav = nav;
@@ -58,7 +74,7 @@
                     [checkedImgs addObject:[NSNumber numberWithInt:i]];
                 }
                 galaryPaging.checkedImgs = checkedImgs;
-                UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:galaryPaging];
+                PortraitNavViewController * nav = [[PortraitNavViewController alloc] initWithRootViewController:galaryPaging];
                 [viewController presentViewController:nav animated:YES completion:nil];
             });
         }else{

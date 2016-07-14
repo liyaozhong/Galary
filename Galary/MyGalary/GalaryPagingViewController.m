@@ -30,10 +30,6 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 
 @implementation GalaryPagingViewController
 
--(UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
 - (instancetype) initWithIncrementalCount : (BOOL) incrementalCount withPickComplete : (void (^)(NSArray<PHAsset*>* assets)) pickComplete maxCount : (NSUInteger) maxCount
 {
     self = [super init];

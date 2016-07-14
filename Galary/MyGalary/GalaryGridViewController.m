@@ -11,6 +11,7 @@
 #import "NSIndexSet+Convenience.h"
 #import "UICollectionView+Convenience.h"
 #import "GalaryPagingViewController.h"
+#import "GalaryHelper.h"
 
 typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 typedef void(^CustomPickerHandler)(NSUInteger index);
@@ -64,9 +65,9 @@ static CGSize AssetGridThumbnailSize;
     if(self.centerTitle){
         self.navigationItem.title = self.centerTitle;
     }else{
-        self.navigationItem.title = NSLocalizedString(@"All Photos", @"");
+        self.navigationItem.title = [GalaryHelper convertAlbumName:@"All Photos"];
     }
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.navigationItem.rightBarButtonItem = rightButton;
     if(!_assetsFetchResults){
         PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];

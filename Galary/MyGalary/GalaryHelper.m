@@ -77,4 +77,18 @@
     return _curNav;
 }
 
++ (NSString *) convertAlbumName : (NSString *) name
+{
+    if(name){
+        if([name isEqualToString:@"Recently Added"]){
+            return @"最近添加";
+        }else if([name isEqualToString:@"Screenshots"]){
+            return @"屏幕快照";
+        }else if([name isEqualToString:@"All Photos"]){
+            return @"全部照片";
+        }
+    }
+    return nil;
+}
+
 @end

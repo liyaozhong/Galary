@@ -9,6 +9,7 @@
 #import "GalaryRootTableViewController.h"
 #import "GalaryGridViewController.h"
 #import "GalaryRootTableViewCell.h"
+#import "GalaryHelper.h"
 
 typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 typedef void(^CustomPickerHandler)(NSUInteger index);
@@ -39,6 +40,9 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
         mCustomPickers = customPickers;
         mCustomPickerHandler = customPickerHandler;
         mMaxCount = maxCount;
+        
+        UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:0 target:nil action:nil];
+        [self.navigationItem setBackBarButtonItem:bar];
     }
     return self;
 }
@@ -46,7 +50,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     self.navigationItem.rightBarButtonItem = rightButton;
     [self.tableView registerNib:[UINib nibWithNibName:@"GalaryRootTableViewCell" bundle:nil] forCellReuseIdentifier:@"GalaryRootTableViewCell"];
     PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
@@ -96,7 +100,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
     
     if (indexPath.section == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"GalaryRootTableViewCell" forIndexPath:indexPath];
-        cell.title.text = NSLocalizedString(@"All Photos", @"");
+        cell.title.text = [GalaryHelper convertAlbumName:@"All Photos"];
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
         PHAsset * asset = [fetchResult firstObject];
         cell.representedAssetIdentifier = asset.localIdentifier;
@@ -123,7 +127,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
                     cell.thumb.image = result;
                 }
             }];
-        cell.title.text = collection.localizedTitle;
+        cell.title.text = [GalaryHelper convertAlbumName:collection.localizedTitle];
     }
     
     return cell;
@@ -134,14 +138,14 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
     GalaryGridViewController *assetGridViewController = [[GalaryGridViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete withCustomPicker:mCustomPickers withCustomPickerHandler:mCustomPickerHandler maxCount:mMaxCount];
     if (indexPath.section == 0) {
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
-        assetGridViewController.centerTitle = NSLocalizedString(@"All Photos", @"");
+        assetGridViewController.centerTitle = [GalaryHelper convertAlbumName:@"All Photos"];
         assetGridViewController.assetsFetchResults = fetchResult;
     }else{
         PHFetchResult *fetchResult = self.sectionFetchResults[indexPath.section];
         PHCollection *collection = fetchResult[indexPath.row];
         PHAssetCollection *assetCollection = (PHAssetCollection *)collection;
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
-        assetGridViewController.centerTitle = collection.localizedTitle;
+        assetGridViewController.centerTitle = [GalaryHelper convertAlbumName:collection.localizedTitle];
         assetGridViewController.assetsFetchResults = assetsFetchResult;
     }
     [self.navigationController pushViewController:assetGridViewController animated:YES];

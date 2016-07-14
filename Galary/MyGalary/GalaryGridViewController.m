@@ -231,7 +231,9 @@ static CGSize AssetGridThumbnailSize;
             mCustomPickerHandler(indexPath.item);
         }
     }else{
-        GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:mPickComplete maxCount:mMaxCount];
+        GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:mIncrementalCount withPickComplete:^(NSArray<PHAsset *> *assets) {
+            [self onSendClick];
+        } maxCount:mMaxCount];
         galaryPaging.assetsFetchResults = self.assetsFetchResults;
         galaryPaging.index = indexPath.item - mCustomPickers.count;
         galaryPaging.checkedImgs = self.checkedImgs;

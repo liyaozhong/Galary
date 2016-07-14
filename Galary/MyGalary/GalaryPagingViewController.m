@@ -26,6 +26,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 @property (nonatomic, strong) ZommableImageView * imageView2;
 @property (nonatomic, strong) ZommableImageView * imageView3;
 @property (nonatomic, strong) CheckView * checkBtn;
+@property (nonatomic, strong) UIButton * bottomButton;
 @end
 
 @implementation GalaryPagingViewController
@@ -48,7 +49,8 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 - (void)viewDidLoad {
     [super viewDidLoad];
     if(self.navigationController && self.navigationController.viewControllers.count == 1){
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(leftTitleClick)];
+        UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:0 target:self action:@selector(leftTitleClick)];
+        [self.navigationItem setLeftBarButtonItem:bar];
     }
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
@@ -61,6 +63,28 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     highQualityOptions = [[PHImageRequestOptions alloc] init];
     highQualityOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     highQualityOptions.networkAccessAllowed = YES;
+    
+    UIView * bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
+    bottomView.backgroundColor = [UIColor colorWithRed:247.0f/255 green:247.0f/255 blue:247.0f/255 alpha:1];
+    [self.view addSubview:bottomView];
+    _bottomButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 5 - 50, 0, 50, 40)];
+    [_bottomButton setTitleColor:[UIColor colorWithRed:74.0f/255 green:74.0f/255 blue:74.0f/255 alpha:1] forState:UIControlStateNormal];
+    [_bottomButton setTitle:@"发送" forState:UIControlStateNormal];
+    [_bottomButton addTarget:self action:@selector(onBottomClick) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:_bottomButton];
+}
+
+- (void) updateBottomView
+{
+    NSUInteger count = self.checkedImgs.count;
+    _bottomButton.enabled = count > 0;
+}
+
+- (void) onBottomClick
+{
+    if(mPickComplete){
+        mPickComplete(nil);
+    }
 }
 
 - (void) leftTitleClick
@@ -180,6 +204,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     }else{
         [_checkBtn setChecked:NO];
     }
+    [self updateBottomView];
 }
 
 - (void) onRightBtnClick

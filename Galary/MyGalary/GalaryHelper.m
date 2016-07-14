@@ -32,10 +32,12 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (status == PHAuthorizationStatusAuthorized) {
             NSLog(@"Authorized");
-            UINavigationController * nav = [[UINavigationController alloc] init];
-            [nav setViewControllers:@[[[GalaryRootTableViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount], [[GalaryGridViewController alloc]  initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount]]];
-            [viewController presentViewController:nav animated:YES completion:nil];
-            self.curNav = nav;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UINavigationController * nav = [[UINavigationController alloc] init];
+                [nav setViewControllers:@[[[GalaryRootTableViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount], [[GalaryGridViewController alloc]  initWithIncrementalCount:incrementalCount withPickComplete:pickComplete withCustomPicker:customPickers withCustomPickerHandler:customPickerHandler maxCount:maxCount]]];
+                [viewController presentViewController:nav animated:YES completion:nil];
+                self.curNav = nav;
+            });
         }else{
             NSLog(@"Denied or Restricted");
         }
@@ -47,16 +49,18 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         if (status == PHAuthorizationStatusAuthorized) {
             NSLog(@"Authorized");
-            GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete maxCount:assets.count];
-            galaryPaging.assets = assets;
-            galaryPaging.index = index;
-            NSMutableArray * checkedImgs = [NSMutableArray new];
-            for(int i = 0 ; i < assets.count; i ++){
-                [checkedImgs addObject:[NSNumber numberWithInt:i]];
-            }
-            galaryPaging.checkedImgs = checkedImgs;
-            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:galaryPaging];
-            [viewController presentViewController:nav animated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                GalaryPagingViewController * galaryPaging = [[GalaryPagingViewController alloc] initWithIncrementalCount:incrementalCount withPickComplete:pickComplete maxCount:assets.count];
+                galaryPaging.assets = assets;
+                galaryPaging.index = index;
+                NSMutableArray * checkedImgs = [NSMutableArray new];
+                for(int i = 0 ; i < assets.count; i ++){
+                    [checkedImgs addObject:[NSNumber numberWithInt:i]];
+                }
+                galaryPaging.checkedImgs = checkedImgs;
+                UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:galaryPaging];
+                [viewController presentViewController:nav animated:YES completion:nil];
+            });
         }else{
             NSLog(@"Denied or Restricted");
         }

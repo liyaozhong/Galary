@@ -50,7 +50,7 @@ typedef void(^CustomPickerHandler)(NSUInteger index);
     self.navigationItem.rightBarButtonItem = rightButton;
     [self.tableView registerNib:[UINib nibWithNibName:@"GalaryRootTableViewCell" bundle:nil] forCellReuseIdentifier:@"GalaryRootTableViewCell"];
     PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
-    allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+    allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
     PHFetchResult *allPhotos = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:allPhotosOptions];
     
     PHFetchResult *recentAdded = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded options:nil];

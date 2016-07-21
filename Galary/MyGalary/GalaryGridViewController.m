@@ -67,7 +67,7 @@ static CGSize AssetGridThumbnailSize;
     self.navigationItem.rightBarButtonItem = rightButton;
     if(!_assetsFetchResults){
         PHFetchOptions *allPhotosOptions = [[PHFetchOptions alloc] init];
-        allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        allPhotosOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
         _assetsFetchResults = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:allPhotosOptions];
     }
     self.imageManager = [[PHCachingImageManager alloc] init];

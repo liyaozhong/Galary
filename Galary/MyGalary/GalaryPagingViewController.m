@@ -27,6 +27,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 @property (nonatomic, strong) ZommableImageView * imageView3;
 @property (nonatomic, strong) CheckView * checkBtn;
 @property (nonatomic, strong) UIButton * bottomButton;
+@property (nonatomic, strong) CheckView * bottomCheckView;
 @end
 
 @implementation GalaryPagingViewController
@@ -72,6 +73,12 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     [_bottomButton setTitle:@"发送" forState:UIControlStateNormal];
     [_bottomButton addTarget:self action:@selector(onBottomClick) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:_bottomButton];
+    _bottomCheckView = [[CheckView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 5 - 50 - 5 - 20, 10, 20, 20)];
+    _bottomCheckView.backgroundColor = [UIColor clearColor];
+    _bottomCheckView.hidden = YES;
+    [_bottomCheckView setChecked:YES];
+    [_bottomCheckView setShowIndex:YES];
+    [bottomView addSubview:_bottomCheckView];
     [self updateTitle];
 }
 
@@ -82,6 +89,17 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
             [self.checkedImgs addObject:[NSNumber numberWithInteger:self.index]];
         }
         mPickComplete(nil);
+    }
+}
+
+- (void) updateBottomView
+{
+    NSUInteger count = self.checkedImgs.count;
+    if(count > 0){
+        _bottomCheckView.hidden = NO;
+        [_bottomCheckView setIndex:count];
+    }else{
+        _bottomCheckView.hidden = YES;
     }
 }
 
@@ -201,6 +219,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     }else{
         [_checkBtn setChecked:NO];
     }
+    [self updateBottomView];
 }
 
 - (void) onRightBtnClick

@@ -75,15 +75,12 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     [self updateTitle];
 }
 
-- (void) updateBottomView
-{
-    NSUInteger count = self.checkedImgs.count;
-    _bottomButton.enabled = count > 0;
-}
-
 - (void) onBottomClick
 {
     if(mPickComplete){
+        if(self.checkedImgs.count == 0){
+            [self.checkedImgs addObject:[NSNumber numberWithInteger:self.index]];
+        }
         mPickComplete(nil);
     }
 }
@@ -204,7 +201,6 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
     }else{
         [_checkBtn setChecked:NO];
     }
-    [self updateBottomView];
 }
 
 - (void) onRightBtnClick

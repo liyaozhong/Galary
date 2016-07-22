@@ -12,6 +12,7 @@
 
 @interface GalaryGridCollectionViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIControl *clickView;
 @property (weak, nonatomic) IBOutlet CheckView *checkView;
 @end
 
@@ -30,6 +31,7 @@
 
 - (void) setChecked : (NSUInteger) index withAnimation : (BOOL) withAnimation withIncrementalCount : (BOOL) incrementalCout shouldShowCheck : (BOOL) shouldShowCheck
 {
+    self.clickView.hidden = !shouldShowCheck;
     self.checkView.hidden = !shouldShowCheck;
     [self.checkView setShowIndex:incrementalCout];
     if(index != NSNotFound)

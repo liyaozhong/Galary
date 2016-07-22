@@ -51,6 +51,7 @@
             </constraints>
             <connections>
                 <outlet property="checkView" destination="LvB-Ta-9sc" id="ttZ-q6-mxf"/>
+                <outlet property="clickView" destination="uvl-HZ-DY4" id="zEq-g9-u8k"/>
                 <outlet property="imageView" destination="Mz9-c4-d5y" id="e3M-Ff-2z9"/>
             </connections>
         </collectionViewCell>

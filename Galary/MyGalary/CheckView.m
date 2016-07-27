@@ -35,9 +35,8 @@
         CGSize size = [indexStr sizeWithAttributes:atr];
         [indexStr drawInRect:CGRectMake((rect.size.width - size.width)/2, (rect.size.height - size.height)/2, size.width + 0.5f, size.height) withAttributes:atr];
     }else{
-        CGContextSetFillColorWithColor(context, [UIColor colorWithRed:242.0f/255 green:242.0f/255 blue:242.0f/255 alpha:1].CGColor);
-        CGContextAddArc(context, rect.size.width/2, rect.size.height/2, MIN(rect.size.width/2, rect.size.height/2), 0, 2*M_PI, 0);
-        CGContextDrawPath(context, kCGPathFill);
+        UIImage * image = [UIImage imageNamed:@"galary_uncheck"];
+        [image drawInRect:rect];
     }
 }
 

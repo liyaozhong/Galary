@@ -80,7 +80,7 @@ static CGSize AssetGridThumbnailSize;
     flowLayout.minimumLineSpacing = 1;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 40) collectionViewLayout:flowLayout];
     [self.view addSubview:_collectionView];
-    _collectionView.backgroundColor = [UIColor colorWithRed:242.0f/255 green:242.0f/255 blue:242.0f/255 alpha:1];
+    _collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [_collectionView registerNib:[UINib nibWithNibName:@"GalaryGridCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"GalaryGridCollectionViewCell"];

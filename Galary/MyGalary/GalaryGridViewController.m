@@ -77,7 +77,7 @@ static CGSize AssetGridThumbnailSize;
     UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.itemSize = CGSizeMake(self.view.bounds.size.width/4 - 0.5f, self.view.bounds.size.width/4 - 0.5f);
     flowLayout.minimumInteritemSpacing = 0;
-    flowLayout.minimumLineSpacing = 0;
+    flowLayout.minimumLineSpacing = 1;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 40) collectionViewLayout:flowLayout];
     [self.view addSubview:_collectionView];
     _collectionView.backgroundColor = [UIColor colorWithRed:242.0f/255 green:242.0f/255 blue:242.0f/255 alpha:1];

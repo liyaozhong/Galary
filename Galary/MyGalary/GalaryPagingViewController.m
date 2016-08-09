@@ -110,7 +110,7 @@ typedef void(^PickCompleteBlock)(NSArray<PHAsset*>* assets);
 {
     if(mPickComplete){
         NSMutableArray * assets = [NSMutableArray new];
-        if(self.assets){
+        if(self.assets && self.assets.count > 0){
             for(NSNumber * index in self.checkedImgs){
                 [assets addObject:[self.assets objectAtIndex:index.intValue]];
             }
